@@ -1,0 +1,15 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "both": "concurrently \"npm run dev-Backend\" \"npm run dev-Brew_Haven\" \"npm run dev-admin-panel\"",
+    "dev-Backend": "cd Backend && npm start",
+    "dev-Brew_Haven": "cd Brew_Haven && npm run dev",
+    "dev-admin-panel": "cd admin-panel && npm start"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

@@ -1,0 +1,336 @@
+.app__gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 4rem;
+    flex-direction: row;
+
+    background: url(/src/assets/bg.png);
+    padding: 4rem 0 4rem 6rem;
+}
+
+.app__gallery-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+    min-width: 500px;
+    padding-right: 2rem;
+}
+
+.app__gallery-content button {
+    margin-top: 1rem;
+}
+
+.app__gallery-images {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    position: relative;
+}
+
+.app__gallery-images_container {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;  
+}
+
+.app__gallery-images_container::-webkit-scrollbar {
+    display: none;
+}
+
+.app__gallery-images_card {
+    position: relative;
+    min-width: 301px;
+    height: 447px;
+    margin-right: 2rem;
+}
+
+.gallery__image-icon {
+    position: absolute;
+    color: #fff;
+    font-size: 2rem;
+    opacity: 0;
+    transition: .5s ease;
+    cursor: pointer;
+}
+
+.app__gallery-images_card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+    transition: .5s ease;
+}
+
+.app__gallery-images_card:hover img {
+    opacity: .35;
+}
+
+.app__gallery-images_card:hover .gallery__image-icon {
+    opacity: 1;
+}
+
+.app__gallery-images_arrows {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    position: absolute;
+    bottom: 5%;
+}
+
+.gallery__arrow-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3); /* Slightly transparent background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow to blend with background */
+}
+
+.gallery__arrow-icon:hover {
+    background: rgba(255, 255, 255, 0.6); /* Slightly more opaque on hover */
+    transform: scale(1.1);
+}
+
+.gallery__arrow-icon svg {
+    color: var(--color-black);
+    font-size: 1.5rem;
+}
+
+@media screen and (min-width: 2000px) {
+    .app__gallery-images_card {
+        min-width: 400px;
+        height: 547px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .app__gallery {
+        flex-direction: column;
+    }
+
+    .app__gallery-images {
+        max-width: 100%;
+        margin: 5rem 0;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .app__gallery {
+        padding: 4rem 0 4rem 4rem;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .app__gallery {
+        padding: 4rem 0 4rem 2rem;
+    }
+
+    .app__gallery-content {
+        min-width: 100%;
+    }
+
+    .app__gallery-images_card {
+        min-width: 240px;
+        height: 320px;
+    }
+}
+
+.app__gallery-images_container {
+  display: flex;
+  overflow-x: scroll;
+  scroll-behavior: smooth; /* Smooth scrolling */
+  scrollbar-width: none; /* For Firefox */
+}
+
+.app__gallery-images_container::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.app__gallery {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-black);
+    padding: 6rem 2rem;
+    position: relative;
+    /* Remove the overflow here */
+}
+
+.app__gallery-content {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.app__gallery-content h1 {
+    font-size: 4rem;
+    margin: 1rem 0;
+    color: var(--color-golden);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.app__gallery-content p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #ffffff;
+    line-height: 1.8;
+}
+
+.app__gallery-images {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    /* Set overflow-x here to allow scrolling */
+    overflow-x: auto;
+}
+
+.app__gallery-images_container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    transition: transform 0.5s ease;
+    /* Allow horizontal scrolling */
+    width: max-content; /* Ensure it takes up the necessary width */
+}
+
+.app__gallery-images_card {
+    min-width: 300px;
+    height: 400px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: perspective(1000px) rotateY(0deg);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.app__gallery-images_card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s ease;
+}
+
+.app__gallery-images_card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 60%,
+        rgba(0, 0, 0, 0.8)
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.app__gallery-images_card:hover {
+    transform: perspective(1000px) rotateY(5deg) translateY(-5px);
+}
+
+.app__gallery-images_card:hover::after {
+    opacity: 1;
+}
+
+.gallery__image-icon {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--color-golden);
+    font-size: 2rem;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.app__gallery-images_card:hover .gallery__image-icon {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.app__gallery-images_arrows {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    padding: 0 1rem;
+    pointer-events: none;
+}
+
+.gallery__arrow-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.3); /* Slightly transparent background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* subtle shadow */
+}
+
+.gallery__arrow-icon:hover {
+    background: rgba(255, 255, 255, 0.6); /* Slightly more opaque on hover */
+    transform: scale(1.1);
+}
+
+.gallery__arrow-icon svg {
+    color: var(--color-black);
+    font-size: 1.5rem;
+}
+
+@media screen and (min-width: 2000px) {
+    .app__gallery-images_card {
+        min-width: 400px;
+        height: 550px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .app__gallery-images_card {
+        min-width: 250px;
+        height: 320px;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .app__gallery {
+        padding: 4rem 1rem;
+    }
+
+    .app__gallery-content h1 {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .app__gallery-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .app__gallery-images_card {
+        min-width: 200px;
+        height: 280px;
+    }
+}

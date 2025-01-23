@@ -1,0 +1,210 @@
+.app__aboutus {
+    position: relative;
+}
+
+.app__aboutus-overlay {
+    position: absolute;
+    inset: 0;
+}
+
+.app__aboutus-overlay img {
+    width: 391px;
+    height: 415px;
+    z-index: 0;
+    transition: opacity 0.5s ease;
+}
+
+.app__aboutus-content {
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app__aboutus-content_about,
+.app__aboutus-content_history {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 2rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.app__aboutus-content_about {
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+    padding-right: 2rem;
+}
+
+.app__aboutus-content_history {
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    padding-left: 2rem;
+}
+
+.app__aboutus-content_knife {
+    margin: 2rem 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-in;
+}
+
+.app__aboutus-content_knife img {
+    height: 910px;
+    transition: transform 0.8s ease;
+    filter: drop-shadow(0 0 20px rgba(var(--color-golden-rgb), 0.3));
+}
+
+.app__aboutus-content_knife img:hover {
+    transform: rotate(5deg) scale(1.05);
+}
+
+.app__aboutus-content_about p,
+.app__aboutus-content_history p {
+    margin: 2rem 0;
+    color: var(--color-grey);
+    line-height: 1.6;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.app__aboutus-content_about p:hover,
+.app__aboutus-content_history p:hover {
+    color: var(--color-golden);
+}
+
+.custom__button {
+    background: linear-gradient(
+        45deg,
+        var(--color-crimson) 0%,
+        var(--color-dark-crimson) 100%
+    );
+    box-shadow: 0 4px 15px rgba(var(--color-crimson-rgb), 0.2);
+    transform-origin: center;
+    color: var(--color-black);
+    font-family: var(--font-base);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 28px;
+    font-size: 16px;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.custom__button:hover {
+    background: linear-gradient(
+        45deg,
+        var(--color-dark-crimson) 0%,
+        var(--color-crimson) 100%
+    );
+    box-shadow: 0 6px 20px rgba(var(--color-crimson-rgb), 0.3);
+}
+
+@media screen and (min-width: 2000px) {
+    .app__aboutus-content_knife img {
+        height: 1110px;
+    }
+
+    .app__aboutus-content_about p,
+    .app__aboutus-content_history p {
+        margin: 4rem 0;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .app__aboutus-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .app__aboutus-content_about,
+    .app__aboutus-content_history {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+    }
+
+    .app__aboutus-content_knife {
+        margin: 2rem 0;
+    }
+
+    .app__aboutus-content_knife img {
+        height: 510px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .app__aboutus-overlay img {
+        width: 80%;
+        height: 320px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Add new scroll reveal animations */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.headtext__cormorant {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.headtext__cormorant::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--color-golden);
+    transition: width 0.3s ease;
+}
+
+.app__aboutus-content_about:hover .headtext__cormorant::after,
+.app__aboutus-content_history:hover .headtext__cormorant::after {
+    width: 100%;
+}
+/* Knife hover animation */
+.app__aboutus-content_knife img {
+    transition: transform 0.4s ease-in-out;
+}
+
+.app__aboutus-content_knife:hover img {
+    transform: scale(1.1);
+}
+
+.app__aboutus-content_knife:active img {
+    transform: scale(0.95);
+}

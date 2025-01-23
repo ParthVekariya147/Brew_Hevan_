@@ -1,0 +1,157 @@
+.table-booking-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background: url('../../assets/bg.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.table-booking-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* background: rgba(0, 0, 0, 0.7); */
+  /* z-index: 1; */
+}
+
+.page-title {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-base);
+  color: var(--color-golden);
+  font-size: 64px;
+  line-height: 83.2px;
+  letter-spacing: 0.04em;
+  text-transform: capitalize;
+  margin-bottom: 2rem;
+}
+
+.table-booking-form {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.table-booking-form label {
+  font-family: var(--font-alt);
+  color: var(--color-golden);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 28px;
+  font-size: 16px;
+}
+
+.table-booking-form input {
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(220, 202, 135, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: var(--font-alt);
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.table-booking-form input:focus {
+  outline: none;
+  border-color: var(--color-golden);
+  box-shadow: 0 0 0 2px rgba(220, 202, 135, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.table-booking-form input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+}
+
+.form-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--color-golden);
+  color: var(--color-black);
+  font-family: var(--font-base);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 28px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.form-button:hover {
+  background: #c4b06b;
+  transform: scale(1.02);
+}
+
+.message {
+  position: relative;
+  z-index: 2;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+  font-family: var(--font-alt);
+  background: rgba(0, 255, 0, 0.1);
+  color: var(--color-golden);
+  border: 1px solid var(--color-golden);
+}
+
+@media screen and (max-width: 850px) {
+  .page-title {
+    font-size: 50px;
+    line-height: 70px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .table-booking-container {
+    padding: 2rem 1rem;
+  }
+
+  .page-title {
+    font-size: 40px;
+    line-height: 60px;
+  }
+
+  .table-booking-form {
+    padding: 1.5rem;
+  }
+
+  .table-booking-form input {
+    padding: 0.5rem;
+  }
+}
+
+/* Fix for autofill background and text color */
+.table-booking-form input:-webkit-autofill,
+.table-booking-form input:-webkit-autofill:hover,
+.table-booking-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #ffffff;
+}

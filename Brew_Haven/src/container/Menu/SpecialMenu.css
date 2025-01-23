@@ -1,0 +1,195 @@
+/* Base styles */
+.app__specialMenu {
+    display: flex;
+    flex-direction: column;
+    background: #0C0C0C;
+    padding: 4rem 6rem;
+    transition: background 0.3s ease-in-out;
+}
+
+.app__specialMenu-title {
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--color-white);
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.app__specialMenu-menu {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    margin: 2rem 0;
+    transition: flex-direction 0.3s ease-in-out;
+}
+
+.app__specialMenu-menu_heading {
+    font-family: 'Cormorant Upright', serif;
+    font-size: 45px;
+    line-height: 58px;
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 2rem;
+    transition: font-size 0.3s ease-in-out;
+}
+
+.app__specialMenu-menu_wine,
+.app__specialMenu-menu_cocktails {
+    flex: 1;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.app__specialMenu-menu_img {
+    width: 410px;
+    margin: 0 2rem;
+    transition: width 0.3s ease-in-out;
+}
+
+.app__specialMenu-menu_img img {
+    width: 100%;
+    height: auto;
+    transition: height 0.3s ease-in-out;
+}
+
+.app__specialMenu_menu_items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    width: 100%;
+}
+
+.menu_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.menu_item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.menu_item-name {
+    font-family: 'Cormorant Upright', serif;
+    color: #DCCA87;
+    font-size: 23px;
+}
+
+.menu_item-dash {
+    width: 100px;
+    height: 1px;
+    background: #DCCA87;
+    margin: 0 1rem;
+}
+
+.menu_item-price {
+    font-family: 'Cormorant Upright', serif;
+    color: #FFFFFF;
+    font-size: 23px;
+}
+
+.menu_item-location {
+    color: #AAAAAA;
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+.menu_item-sub {
+    color: #AAAAAA;
+    font-size: 16px;
+    margin-top: 0.5rem;
+}
+
+.app__specialMenu-button {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+.custom__button {
+    background: #DCCA87;
+    color: #0C0C0C;
+    font-family: 'Cormorant Upright', serif;
+    font-size: 16px;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom__button:hover {
+    background: #FFFFFF;
+}
+
+/* Media queries */
+@media screen and (min-width: 2000px) {
+    .app__specialMenu-menu_img {
+        width: 650px;
+    }
+
+    .app__specialMenu-menu_img img {
+        height: 920px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    .app__specialMenu-menu {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .app__specialMenu-menu_img {
+        margin: 3rem 0;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .app__specialMenu {
+        padding: 4rem 2rem;
+    }
+
+    .app__specialMenu-menu_img {
+        width: 100%;
+    }
+
+    .app__specialMenu-menu_heading {
+        font-size: 35px;
+        line-height: 48px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.app__specialMenu-title {
+    animation: fadeIn 1s ease-in-out;
+}
+
+.app__specialMenu-menu {
+    animation: slideIn 1s ease-in-out;
+}

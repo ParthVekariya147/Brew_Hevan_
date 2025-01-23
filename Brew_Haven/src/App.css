@@ -1,0 +1,148 @@
+
+.all {
+  background: url(/src/assets/bg.png);
+  background-size: cover; /* Ensure the background covers the entire area */
+}
+
+.section__padding {
+  padding: 4rem 6rem;
+}
+
+.flex__center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app__bg {
+  background: url('./assets/bg.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; /* Prevents repeating the background */
+  background-attachment: fixed;
+}
+
+.app__wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.app__wrapper_info {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.app__wrapper_img {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2rem;
+}
+
+.app__wrapper_img-reverse {
+  justify-content: flex-start;
+  margin-right: 2rem;
+}
+
+.app__wrapper_img img {
+  width: auto; /* Maintain aspect ratio */
+  max-width: 80%; /* Limit maximum width */
+}
+
+.custom__button {
+  background-color: var(--color-crimson);
+  color: var(--color-black);
+  font-family: var(--font-base);
+  font-weight: bold; /* Use bold for better visibility */
+  letter-spacing: normal; /* Reset letter spacing */
+  line-height: normal; /* Reset line height */
+  font-size: larger; /* Use larger font size for buttons */
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px; /* Slightly round the corners */
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.p__cormorant {
+  font-family: var(--font-base);
+  color: var(--color-white);
+  font-weight: bold; /* Use bold for better visibility */
+}
+
+.p__opensans {
+  font-family: var(--font-alt);
+  color: var(--color-white);
+}
+
+.headtext__cormorant {
+  font-family: var(--font-base);
+  color: var(--color-golden);
+}
+
+.spoon__img {
+   width: auto; /* Maintain aspect ratio */
+   max-width:45px; /* Limit maximum width */
+}
+
+/* Responsive Design */
+@media screen and (min-width:2000px) {
+   .custom__button,
+   .p__cormorant,
+   .p__opensans,
+   .headtext__cormorant,
+   .spoon__img {
+      font-size: calc(1.5rem + (37 -1.5) * ((100vw -320px) / (2000 -320))); /* Responsive font size scaling */
+   }
+}
+
+@media screen and (max-width:1150px) {
+   .app__wrapper {
+      flex-direction: column; /* Stack elements vertically on smaller screens */
+   }
+
+   .app__wrapper_img {
+      margin-top:2rem; /* Add margin for spacing */
+   }
+
+   .app__wrapper_img img {
+      max-width:100%; /* Full width on smaller screens */
+   }
+}
+
+@media screen and (max-width:850px) {
+   .section__padding {
+      padding :4rem; 
+   }
+}
+
+@media screen and (max-width :650px) {
+   .section__padding {
+      padding :4rem2rem; 
+   }
+
+   .p__cormorant,
+   .p__opensans,
+   .headtext__cormorant{
+      font-size : calc(1.2rem + (21 -1.2) * ((100vw -320px) / (650 -320))); /* Responsive font size scaling */ 
+   }
+}
+
+@media screen and (max-width :450px) {
+   .p__opensans,
+   .p__cormorant{
+      font-size : calc(1rem + (19 -1) * ((100vw -320px) / (450 -320))); /* Responsive font size scaling */ 
+   }
+
+   .headtext__cormorant{
+      font-size : calc(1.5rem + (45 -1.5) * ((100vw -320px) / (450 -320))); /* Responsive font size scaling */ 
+   }
+}

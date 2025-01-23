@@ -1,0 +1,255 @@
+/* Base styles for the form container */
+.auth-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(220, 202, 135, 0.1);
+  border: 1px solid rgba(220, 202, 135, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+.auth-form-title {
+  color: #DCCA87;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.auth-form label {
+  color: #DCCA87;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+  font-weight: 500;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(220, 202, 135, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #DCCA87;
+  box-shadow: 0 0 0 2px rgba(220, 202, 135, 0.1);
+}
+
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* Phone verification section */
+.phone-verification-section,
+.otp-section {
+  margin: 0.5rem 0;
+}
+
+.phone-input-group,
+.otp-input-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.phone-input-group input,
+.otp-input-group input {
+  flex: 1;
+}
+
+.otp-button {
+  /* width: 100%; */
+  padding: 0.8rem 1.2rem;
+  background: transparent;
+  border: 1px solid #DCCA87;
+  color: #DCCA87;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+.otp-button:hover:not(:disabled) {
+  background: #DCCA87;
+  color: #000;
+}
+
+.otp-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Main submit button */
+.auth-form-button {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #DCCA87;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-form-button:hover:not(:disabled) {
+  background: #c4b176;
+  transform: translateY(-2px);
+}
+
+.auth-form-button:disabled {
+  background: rgba(220, 202, 135, 0.3);
+  cursor: not-allowed;
+}
+
+/* Footer section */
+.auth-form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-form-link {
+  color: #DCCA87;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.auth-form-link:hover {
+  color: #c4b176;
+  text-decoration: underline;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  .auth-form-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .phone-input-group,
+  .otp-input-group {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .otp-button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .auth-form-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-form input {
+    padding: 0.6rem 0.8rem;
+  }
+
+  .auth-form-button {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Input disabled state */
+.auth-form input:disabled {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(220, 202, 135, 0.1);
+  cursor: not-allowed;
+}
+
+/* Error message styling */
+.auth-form-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+
+/* ... existing styles ... */
+
+/* Fix for autofill background and text color */
+.auth-form input:-webkit-autofill,
+.auth-form input:-webkit-autofill:hover,
+.auth-form input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(0, 0, 0, 0.7) inset;
+  transition: background-color 5000s ease-in-out 0s;
+  caret-color: #fff;
+}
+
+/* Ensure consistent styling for both normal and autofilled inputs */
+.auth-form input {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(220, 202, 135, 0.2);
+  border-radius: 8px;
+  color: #fff !important;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.auth-form input:focus {
+  outline: none;
+  border-color: #DCCA87;
+  box-shadow: 0 0 0 4px rgba(220, 202, 135, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Style for disabled input when OTP is verified */
+.auth-form input:disabled {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(220, 202, 135, 0.1);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Placeholder styling */
+.auth-form input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+}
+
+/* Firefox specific autofill style */
+.auth-form input:-moz-autofill,
+.auth-form input:-moz-autofill:focus {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+/* Edge specific autofill style */
+.auth-form input:-ms-autofill,
+.auth-form input:-ms-autofill:focus {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+

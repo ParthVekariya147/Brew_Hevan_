@@ -1,0 +1,72 @@
+.alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.table > :not(caption) > * > * {
+  padding: 1rem;
+}
+
+.popular-item {
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.popular-item:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.dashboard .page-title {
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.stat-card {
+  padding: 1rem;
+}
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.stat-details h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.stat-details p {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.trend {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.trend.positive {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+}
+
+.trend.negative {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.chart-card {
+  height: 100%;
+} 

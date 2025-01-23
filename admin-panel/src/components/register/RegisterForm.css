@@ -1,0 +1,117 @@
+.register-form-container {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 30px;
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    border-radius: 20px;
+    box-shadow: 
+        20px 20px 60px #d9d9d9,
+        -20px -20px 60px #ffffff;
+}
+
+.register-form-container h2 {
+    text-align: center;
+    color: #2d3436;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.register-form-container form div {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.register-form-container label {
+    display: block;
+    margin-bottom: 8px;
+    color: #636e72;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.register-form-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #dfe6e9;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.register-form-container input:focus {
+    outline: none;
+    border-color: #00b894;
+    box-shadow: 0 0 0 4px rgba(0, 184, 148, 0.1);
+    transform: translateY(-2px);
+}
+
+.register-form-container input::placeholder {
+    color: #b2bec3;
+}
+
+.register-form-container button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+.register-form-container button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 7px 14px rgba(0, 184, 148, 0.2);
+    background: linear-gradient(135deg, #00cec9, #00b894);
+}
+
+.register-form-container button:active {
+    transform: translateY(-1px);
+}
+
+.error {
+    color: #d63031;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: rgba(255, 82, 82, 0.1);
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.success {
+    color: #00b894;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: rgba(0, 184, 148, 0.1);
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@media (max-width: 480px) {
+    .register-form-container {
+        margin: 20px;
+        padding: 20px;
+    }
+    
+    .register-form-container h2 {
+        font-size: 24px;
+    }
+}

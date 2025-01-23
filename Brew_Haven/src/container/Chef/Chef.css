@@ -1,0 +1,91 @@
+.app__chef-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+}
+
+.app__chef-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.app__chef-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.experience-badge {
+    position: absolute;
+    bottom: -20px;
+    right: 40px;
+    background: var(--color-black);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    border: 2px solid var(--color-golden);
+    text-align: center;
+}
+
+.experience-badge span {
+    font-family: var(--font-base);
+    color: var(--color-golden);
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.experience-badge p {
+    color: var(--color-white);
+    font-size: 14px;
+}
+
+.quote-block {
+    display: flex;
+    gap: 1rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 3px solid var(--color-golden);
+    margin: 2rem 0;
+}
+
+.quote-block img {
+    width: 40px;
+    height: 40px;
+    opacity: 0.5;
+}
+
+.app__chef-signature {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.app__chef-signature p:first-child {
+    font-family: var(--font-base);
+    color: var(--color-golden);
+    font-size: 32px;
+    margin-bottom: 0.5rem;
+}
+
+.app__chef-signature img {
+    width: 200px;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .app__chef-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .app__chef-image img {
+        max-width: 300px;
+    }
+
+    .experience-badge {
+        right: 20px;
+    }
+}

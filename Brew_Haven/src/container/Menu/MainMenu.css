@@ -1,0 +1,61 @@
+.app__mainMenu {
+  display: flex;
+  flex-direction: column;
+  background: url(/src/assets/bg.png);
+  color: var(--color-golden);
+  justify-content: center;
+  align-items: center; /* Center the entire menu container */
+  width: 100%;
+}
+
+.app__mainMenu-title {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.app__specialMenu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Always two columns */
+  gap: 5rem; /* Spacing between rows and columns */
+  width: 80%; /* Set a width for better control */
+  max-width: 1200px; /* Maximum width for larger screens */
+}
+
+.app__specialMenu-category {
+  padding: 1rem;
+  border-radius: 8px;
+  /* background-color: rgba(255, 255, 255, 0.1);  */
+  /* text-align: center; */
+}
+
+.app__mainMenu-heading {
+  font-family: var(--font-base);
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--color-white);
+}
+
+.app__mainMenu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.MenuItem {
+  text-align: center; /* Center the content of each MenuItem */
+}
+
+/* Responsive Design */
+@media only screen and (max-width: 768px) {
+  .app__specialMenu-grid {
+    grid-template-columns: repeat(1, 1fr); /* Single column on mobile */
+    width:90%;
+    gap:1rem; /* Adjust gap for mobile */
+   }
+
+   .app__mainMenu-heading {
+     font-size:2rem; /* Adjust heading size for mobile */
+   }
+}
+
