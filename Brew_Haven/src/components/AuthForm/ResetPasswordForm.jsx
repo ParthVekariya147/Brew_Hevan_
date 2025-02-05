@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Alert from "../Alert/Alert";
 import "./AuthForm.css";
-import { sendOtp, verifyOtp, resetPassword } from "../../api"; // Import the APIs
+import { sendOtp, verifyOtp, forgetPsswordSendOtp , forgetPasswordVerifyOtp , resetpassword } from "../../api"; // Import the APIs
 
 function ResetPasswordForm() {
   const [formData, setFormData] = useState({
@@ -31,7 +31,7 @@ function ResetPasswordForm() {
     }
 
     try {
-      const response = await sendOtp(formData.email);
+      const response = await forgetPsswordSendOtp(formData.email);
       console.log("OTP Send Response:", response.data); // Debugging log
 
       if (response.data.success) {
@@ -61,7 +61,7 @@ function ResetPasswordForm() {
     }
 
     try {
-      const response = await verifyOtp(formData.email, formData.otp);
+      const response = await forgetPasswordVerifyOtp(formData.email, formData.otp);
       console.log("OTP Verify Response:", response.data); // Debugging log
 
       if (response.data.success) {
@@ -96,7 +96,7 @@ function ResetPasswordForm() {
     }
 
     try {
-      const response = await resetPassword({
+      const response = await resetpassword({
         email: formData.email,
         password: formData.newPassword,
         cpassword: formData.confirmPassword,

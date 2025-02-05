@@ -202,7 +202,7 @@ exports.Login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validation
+    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -210,8 +210,9 @@ exports.Login = async (req, res) => {
       });
     }
 
-    // Find user
+    // Find user by email
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -219,11 +220,13 @@ exports.Login = async (req, res) => {
       });
     }
 
-    // Check password
+    console.log("User found:", user.email);
+    console.log("Stored Hashed Password:", user.password);
+
+    // Compare entered password with stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isMatch); // Log password match result
-    console.log("Entered password:", password); // Log entered password
-    console.log("Stored hashed password:", user.password); // Log stored hashed password
+    console.log("Password match:", isMatch);
+
     if (!isMatch) {
       return res.status(401).json({
         success: false,
@@ -232,19 +235,22 @@ exports.Login = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, {
+      expiresIn: "1d",
+    });
 
     res.status(200).json({
       success: true,
       message: "Login successful",
       token: token,
-      data: {
+      user: {
         _id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
       },
     });
+
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({
@@ -336,12 +342,11 @@ exports.resetPassword = async (req, res) => {
       return res.status(400).json({ success: false, message: "Passwords do not match" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    user.password = hashedPassword;
+    user.password = password; // Store password in plain text
+    user.cpassword = cpassword; // Store cpassword in plain text
     await user.save();
 
     console.log("Password reset successfully for user:", user.email); // Log success
-    console.log("New hashed password:", hashedPassword); // Log hashed password
 
     res.status(200).json({ success: true, message: "Password reset successfully" });
   } catch (error) {

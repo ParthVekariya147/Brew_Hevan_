@@ -79,7 +79,32 @@ export const fetchOrders = () => {
   return axiosClient.get("/orders");
 };
 
-export function resetPassword(data) {
+export function forgetPsswordSendOtp(email) {
+  return axiosClient
+    .post("/forgot-password/send-otp", { email })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log("error ------", error);
+      throw error;
+    });
+}
+
+
+export function forgetPasswordVerifyOtp(email, otp) {
+  return axiosClient
+    .post("/forgot-password/verify-otp", { email, otp })
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      console.log("error ------", error);
+      throw error;
+    });
+}
+
+export function resetpassword(data) {
   return axiosClient
     .post("/reset-password", data)
     .then((response) => {
@@ -90,16 +115,3 @@ export function resetPassword(data) {
       throw error;
     });
 }
-
-// export function forgotPassword(email, newPassword) {
-//   return axiosClient
-//     .post("/forgotpassword", { email, newPassword })
-//     .then((response) => {
-//       return response;
-//     })
-//     .catch((error) => {
-//       console.log("error ------", error);
-//       throw error;
-//     });
-// }
-
