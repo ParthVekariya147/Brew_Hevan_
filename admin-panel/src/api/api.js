@@ -83,6 +83,31 @@ export function register(URL, data) {
     });
 }
 
+export  function AdminLogin(data) {
+  return axiosClient
+   .post("/admin/login", data)
+   .then((response) => {
+      return response;
+    })
+   .catch((error) => {
+      console.log("error ------", error);
+      throw error;
+    });
+}
+
+export function AdminRegister(data) {
+  return axiosClient
+   .post("/admin/reg", data)
+   .then((response) => {
+      return response;
+    })
+   .catch((error) => {
+      console.log("error ------", error);
+      throw error;
+    });
+}
+
+
 export function add(URL, data) {
   return axiosClient
     .post(`/${URL}`, data)
@@ -312,3 +337,4 @@ export function booktable(data) {
       throw error;
     });
 }
+

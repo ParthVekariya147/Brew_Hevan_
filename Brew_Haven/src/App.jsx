@@ -7,6 +7,7 @@ import RegisterForm from './components/AuthForm/RegisterForm';
 import TableBook from './container/TableBooking/TableBooking';
 import MainMenu from './container/Menu/MainMenu';
 import OrderPage from './components/Order/OrderPage';
+// import ResetPasswordForm from './components/AuthForm/ResetPasswordForm';
 import './App.css';
 
 const App = () => (
@@ -27,6 +28,7 @@ const App = () => (
         <Route path="/main-menu" element={<MainMenu  />} />
         <Route path="/book-table" element={<TableBook />} />
         <Route path="/order" element={<OrderPage />} />
+        {/* <Route path='/resetpassword' element={<ResetPasswordForm />} /> */}
       </Routes>
       <Footer />
     </div>

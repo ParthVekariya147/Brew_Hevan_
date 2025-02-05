@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import './LoginForm.css';
-import { login } from '../../api/api';
+import { AdminLogin } from '../../api/api';  // Import AdminLogin
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -27,7 +27,8 @@ const LoginForm = () => {
     try {
       setError('');
 
-      const response = await login("login", {
+      // Use the new AdminLogin function here
+      const response = await AdminLogin({
         email: formData.email,
         password: formData.password
       });

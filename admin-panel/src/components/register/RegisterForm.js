@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { register } from '../../api/api';
+import { AdminRegister } from '../../api/api'; // Import the new AdminRegister function
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import './RegisterForm.css';
 
 const RegisterForm = () => {
@@ -9,10 +10,12 @@ const RegisterForm = () => {
         phone: '',
         password: '',
         cpassword: '',
+        role: '', // Added role field
     });
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const navigate = useNavigate(); // Initialize navigate function
 
     // Handle form field changes
     const handleChange = (e) => {
@@ -26,33 +29,57 @@ const RegisterForm = () => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
+        setSuccess('');
+
+        // Check if passwords match
+        if (formData.password !== formData.cpassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        // Validate all fields are filled
+        if (!formData.name || !formData.email || !formData.phone || !formData.password || !formData.cpassword || !formData.role) {
+            setError('All fields are required');
+            return;
+        }
 
         console.log('Form data:', formData);
-        register('reg', {
+
+        // Now make the API call to register the user using AdminRegister
+        AdminRegister({
             name: formData.name,
             email: formData.email,
             password: formData.password,
             cpassword: formData.cpassword,
-            phone: formData.phone
-          })
-            .then((response) => {
-              if (response.status === 201) {
+            phone: formData.phone,
+            role: formData.role,  // Send role data to API
+        })
+        .then((response) => {
+            console.log('API Response:', response);
+            if (response.status === 201) {
+                setSuccess('Registration successful!');
                 setFormData({
-                  name: '',
-                  email: '',
-                  password: '',
-                  cpassword: '',
-                  phone: ''
+                    name: '',
+                    email: '',
+                    password: '',
+                    cpassword: '',
+                    phone: '',
+                    role: '',  // Reset role field after successful registration
                 });
-                // setAlert({ message: 'Registration successful!', type: 'success' });
                 setTimeout(() => {
-                //   navigate('/login');
-                console.log('Registration successful!');
+                    // After a successful registration, navigate to the login page
+                    navigate('/login'); // You can change '/login' to your login page route
                 }, 1000);
-              }
-            })
-            .catch((error) => {
-            });
+            } else {
+                setError('Registration failed. Please try again.');
+            }
+        })
+        .catch((error) => {
+            console.error('API error:', error);
+            const errorMessage = error?.response?.data?.error || 'An error occurred. Please try again.';
+            setError(errorMessage);
+        });
     };
 
     return (
@@ -112,17 +139,34 @@ const RegisterForm = () => {
                 </div>
 
                 <div>
-                    <label>cpassword:</label>
+                    <label>Confirm Password:</label>
                     <input
-                        type="cpassword"
+                        type="password"
                         name="cpassword"
                         value={formData.cpassword}
                         onChange={handleChange}
-                        placeholder="Enter a strong password"
+                        placeholder="Re-enter password"
                         required
                         style={{ padding: '8px', marginBottom: '20px', width: '100%' }}
                     />
                 </div>
+
+                <div>
+                    <label>Role:</label>
+                    <select
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        required
+                        style={{ padding: '8px', marginBottom: '20px', width: '100%' }}
+                    >
+                        <option value="">Select a role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                        {/* Add more roles as needed */}
+                    </select>
+                </div>
+
                 <button
                     type="submit"
                     style={{

@@ -71,9 +71,14 @@ const LoginForm = () => {
         <button type="submit" className="auth-form-button">Login</button>
       </form>
       <p className="auth-form-footer">
+        Forgot your password?{' '}
+        <Link to="/resetpassword" className="auth-form-link">Reset it here</Link>
+      </p>
+      <p className="auth-form-footer">
         Don't have an account?{' '}
         <Link to="/register" className="auth-form-link">Register here</Link>  {/* Use Link instead of <a> */}
       </p>
+
     </div>
   );
 };

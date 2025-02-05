@@ -1,69 +1,82 @@
+// @ts-ignore
 import React, { useState } from 'react';
-import { Form, Button, Card, Alert, Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import './LoginForm.css';
+import { useNavigate, Link } from 'react-router-dom';  // Import Link from react-router-dom
+import './AuthForm.css';
+// import { login } from '../../api';
+import { AdminLogin } from '../../api/api';
 
-
-function Login() {
-  const [credentials, setCredentials] = useState({ email: '', password: '' });
+const LoginForm = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    token:''
+  });
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError('');
-      setLoading(true);
-      const success = await login(credentials);
-      if (success) {
-        navigate('/dashboard');
+
+
+
+      const response = await AdminLogin("/admin/login", {
+        email: formData.email,
+        password: formData.password
+      });
+
+      if (response.data.success) {
+        localStorage.setItem('authToken', response.data.token);
+        navigate('/');
       } else {
-        setError('Failed to sign in');
+        setError(response.data.error);
       }
-    } catch (error) {
-      setError('Failed to sign in');
-    } finally {
-      setLoading(false);
+    } catch (err) {
+      setError(err.response?.data?.error || 'An error occurred. Please try again.');
     }
   };
 
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
-      <div className="w-100" style={{ maxWidth: "400px" }}>
-        <Card>
-          <Card.Body>
-            <h2 className="text-center mb-4">Login</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  required
-                  value={credentials.email}
-                  onChange={(e) => setCredentials({...credentials, email: e.target.value})}
-                />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  required
-                  value={credentials.password}
-                  onChange={(e) => setCredentials({...credentials, password: e.target.value})}
-                />
-              </Form.Group>
-              <Button disabled={loading} className="w-100" type="submit">
-                Log In
-              </Button>
-            </Form>
-          </Card.Body>
-        </Card>
-      </div>
-    </Container>
+    <div className="auth-form-container">
+      <h2 className="auth-form-title">Login</h2>
+      <form onSubmit={handleSubmit} className="auth-form">
+        <label htmlFor="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          placeholder="Enter your email"
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          placeholder="Enter your password"
+        />
+        {error && <div className="auth-form-error">{error}</div>}
+        <button type="submit" className="auth-form-button">Login</button>
+      </form>
+      <p className="auth-form-footer">
+        Don't have an account?{' '}
+        <Link to="/register" className="auth-form-link">Register here</Link>  {/* Use Link instead of <a> */}
+      </p>
+    </div>
   );
-}
+};
 
-export default Login; 
+export default LoginForm;
