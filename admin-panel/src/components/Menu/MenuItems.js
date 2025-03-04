@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Form, Modal, Table, Card } from "react-bootstrap";
-import {
-  getMenu,
-  updateMenu,
-  deleteMenu,
-  createMenu,
-} from "../../api/api";
-import "./MenuItems.css"; // Ensure to import the CSS file
+import { getMenu, updateMenu, deleteMenu, createMenu } from "../../api/api";
+import "./MenuItems.css";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MenuItems() {
   const [menuItems, setMenuItems] = useState([]);
@@ -43,17 +41,17 @@ function MenuItems() {
     e.preventDefault();
     try {
       if (currentMenu) {
-        // Update existing menu item
         await updateMenu(currentMenu._id, formData);
+        toast.success("Menu item updated successfully!");
       } else {
-        // Create new menu item
         await createMenu(formData);
+        toast.success("Menu item created successfully!");
       }
       fetchMenuItems();
       handleCloseModal();
     } catch (error) {
       console.error("Error saving menu item:", error);
-      alert(error.response?.data?.message || "Error saving menu item");
+      toast.error(error.response?.data?.message || "Error saving menu item");
     }
   };
 
@@ -75,6 +73,7 @@ function MenuItems() {
       setFormData(menu);
     }
     setShowModal(true);
+    // toast.info(menu ? "Editing menu item" : "Adding new menu item");
   };
 
   const filteredMenuItems = menuItems.filter((item) => {
@@ -92,10 +91,11 @@ function MenuItems() {
 
   return (
     <>
+      <ToastContainer />
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Menu Management</h2>
         <Button variant="primary" onClick={() => handleShowModal()}>
-          Add Menu Item
+          <FaPlus className="me-1" /> Add Menu Item
         </Button>
       </div>
 
@@ -126,7 +126,7 @@ function MenuItems() {
                 <option>frenchFries</option>
                 <option>Chinese</option>
                 <option>Cakes</option>
-                <option>IceCreams</option> {/* Updated */}
+                <option>IceCreams</option>
               </Form.Select>
             </Col>
             <Col md={4}>
@@ -171,16 +171,23 @@ function MenuItems() {
                       className="me-2"
                       onClick={() => handleShowModal(menu)}
                     >
-                      Edit
+                      <FaEdit className="me-1" /> Edit
                     </Button>
                     <Button
                       variant="outline-danger"
                       size="sm"
-                      onClick={() =>
-                        deleteMenu(menu._id).then(() => fetchMenuItems())
-                      }
+                      onClick={() => {
+                        deleteMenu(menu._id)
+                          .then(() => {
+                            fetchMenuItems();
+                            toast.success("Menu item deleted successfully!");
+                          })
+                          .catch((error) => {
+                            toast.error("Error deleting menu item");
+                          });
+                      }}
                     >
-                      Remove
+                      <FaTrash className="me-1" /> Delete
                     </Button>
                   </td>
                 </tr>

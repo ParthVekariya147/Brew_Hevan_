@@ -1,5 +1,7 @@
+// @ts-ignore
 import React, { useEffect, useState } from 'react';
-import { fetchUsers, deleteUser } from '../api'; // Adjust the import path as needed
+// @ts-ignore
+import { fetchUsers, deleteUser } from '../api'; 
 
 const UserList = () => {
   const [users, setUsers] = useState([]);

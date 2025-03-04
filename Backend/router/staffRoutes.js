@@ -3,7 +3,7 @@ const router = express.Router();
 const staffController = require('../controller/staffController');
 const auth = require('../middleware/auth');
 
-// Staff management routes
+
 router.post('/staff', auth.check_token, staffController.createStaff);
 router.get('/staff', auth.check_token, staffController.getAllStaff);
 router.get('/staff/:id', auth.check_token, staffController.getStaffById);

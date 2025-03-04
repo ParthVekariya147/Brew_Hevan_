@@ -1,96 +1,144 @@
+// @ts-ignore
 import React, { useEffect, useState } from "react";
 import { MenuItem } from "../../components";
 import axios from "axios";
 import "./MainMenu.css";
+// @ts-ignore
+import menuPDF from "../../assets/menu.pdf";
 
 const MainMenu = () => {
-    const [menuItems, setMenuItems] = useState({});
+  const [menuItems, setMenuItems] = useState({});
 
-    useEffect(() => {
-        const fetchMenuItems = async () => {
-            try {
-                const response = await axios.get("http://localhost:4000/menu/getmenu");
-                const data = response.data.data;
+  useEffect(() => {
+    const fetchMenuItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/menu/getmenu");
+        const data = response.data.data;
 
-                // Group items dynamically by category
-                const groupedItems = data.reduce((acc, item) => {
-                    if (!acc[item.category]) {
-                        acc[item.category] = [];
-                    }
-                    acc[item.category].push(item);
-                    return acc;
-                }, {});
+        const groupedItems = data.reduce((acc, item) => {
+          if (!acc[item.category]) {
+            acc[item.category] = [];
+          }
+          acc[item.category].push(item);
+          return acc;
+        }, {});
 
-                setMenuItems(groupedItems);
-            } catch (error) {
-                console.error("Error fetching menu items:", error);
-            }
-        };
+        setMenuItems(groupedItems);
+      } catch (error) {
+        console.error("Error fetching menu items:", error);
+      }
+    };
 
-        fetchMenuItems();
-        
-    }, []);
+    fetchMenuItems();
+  }, []);
 
-    return (
-        <div className="app__mainMenu">
-            <div className="app__specialMenu-grid">
-                {Object.keys(menuItems).map((category) => {
-                    // Define emojis for each category
-                    let emoji;
-                    switch (category) {
-                        case "wines":
-                            emoji = "🍷"; // Wine
-                            break;
-                        case "cocktails":
-                            emoji = "🍸"; // Cocktail
-                            break;
-                        case "Hotcoffee":
-                            emoji = "☕"; // Hot Coffee
-                            break;
-                        case "Coldcoffee":
-                            emoji = "🧋"; // Cold Coffee
-                            break;
-                        
-                        case "burgers":
-                            emoji = "🍔"; // Burger
-                            break;
-                        case "sandwiches":
-                            emoji = "🥪"; // Sandwich
-                            break;
-                        case "frenchFries":
-                            emoji = "🍟"; // French Fries
-                            break;
-                        case "Chinese":
-                            emoji = "🥢"; // Chinese Food (Chopsticks)
-                            break;
-                        case "Cakes":
-                            emoji = "🎂"; // Cake
-                            break;
-                            case "pizzas":
-                            emoji = "🍕"; // Pizza
-                            break;
-                        case "IceCreams":
-                            emoji = "🍦"; // Ice Cream
-                            break;
-                    }
+  const onButtonClick = () => {
 
-                    return (
-                        <div key={category} className="app__specialMenu-category">
-                            {/* Category Heading with Emoji */}
-                            <p className="app__mainMenu-heading">{`${emoji} ${category.charAt(0).toUpperCase() + category.slice(1)}`}</p>
+    const fileURL = menuPDF;
 
-                            {/* Menu Items for the Category */}
-                            <div className="app__mainMenu-items">
-                                {menuItems[category].map((item) => (
-                                    <MenuItem key={item._id} title={item.title} price={item.price} tags={item.tag} />
-                                ))}
-                            </div>
-                        </div>
-                    );
-                })}
+
+    let alink = document.createElement("a");
+    alink.href = fileURL;
+    alink.download = "Menu.pdf";
+    alink.click();
+  };
+
+  return (
+    <div className="app__mainMenu">
+      <div className="app__specialMenu-grid">
+        {Object.keys(menuItems).map((category) => {
+          let emoji;
+          switch (category) {
+            case "wines":
+              emoji = "🍷";
+              break;
+            case "cocktails":
+              emoji = "🍸"; 
+              break;
+            case "Hotcoffee":
+              emoji = "☕"; 
+              break;
+            case "Coldcoffee":
+              emoji = "🧋"; 
+              break;
+            case "burgers":
+              emoji = "🍔"; 
+              break;
+            case "sandwiches":
+              emoji = "🥪"; 
+              break;
+            case "frenchFries":
+              emoji = "🍟"; 
+              break;
+            case "Chinese":
+              emoji = "🥢"; 
+              break;
+            case "Cakes":
+              emoji = "🎂"; 
+              break;
+            case "pizzas":
+              emoji = "🍕"; 
+              break;
+            case "IceCreams":
+              emoji = "🍦"; 
+              break;
+          }
+
+          return (
+            <div key={category} className="app__specialMenu-category">
+          
+              <p className="app__mainMenu-heading">{`${emoji} ${
+                category.charAt(0).toUpperCase() + category.slice(1)
+              }`}</p>
+
+              <div className="app__mainMenu-items">
+                {menuItems[category].map((item) => (
+                  <MenuItem
+                    key={item._id}
+                    title={item.title}
+                    price={item.price}
+                    tags={item.tag}
+                  />
+                ))}
+              </div>
             </div>
-        </div>
-    );
+          );
+        })}
+      </div>
+      <center>
+
+        <button
+          type="button"
+          className="custom__button"
+          style={{
+            background: "transparent",
+            color: "var(--color-golden)",
+            padding: "0.75rem 2rem",
+            fontWeight: "600",
+            letterSpacing: "0.05em",
+            borderRadius: "5px",
+            border: "2px solid var(--color-golden)",
+            transition: "all 0.3s ease",
+          }}
+          onMouseOut={(e) => {
+            // @ts-ignore
+            e.target.style.background = "transparent";
+            // @ts-ignore
+            e.target.style.color = "var(--color-golden)";
+          }}
+          onMouseOver={(e) => {
+            // @ts-ignore
+            e.target.style.background = "var(--color-golden)";
+            // @ts-ignore
+            e.target.style.color = "var(--color-black)";
+          }}
+          onClick={onButtonClick}
+        >
+          Download Menu
+        </button>
+      </center>
+    </div>
+  );
 };
 
 export default MainMenu;

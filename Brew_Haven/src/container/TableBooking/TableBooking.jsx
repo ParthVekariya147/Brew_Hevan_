@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./TableBooking.css";
@@ -11,7 +10,8 @@ const TableBooking = () => {
     phone: "",
     date: "",
     time: "",
-    guests: ""
+    guests: "",
+    period: "",
   });
   const [message, setMessage] = useState("");
 
@@ -19,7 +19,7 @@ const TableBooking = () => {
     const token = localStorage.getItem("authToken");
     if (!token) {
       setMessage("Please log in to book a table.");
-      navigate("/login"); // Redirect if no token
+      navigate("/login");
     }
   }, [navigate]);
 
@@ -27,9 +27,32 @@ const TableBooking = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleTimeChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("authToken"); // Get the token
+    const token = localStorage.getItem("authToken"); 
+
+    if (!/^\d{10}$/.test(formData.phone)) {
+      setMessage("Phone number must be 10 digits.");
+      return;
+    }
+
+    const selectedDate = new Date(formData.date);
+    const today = new Date();
+    if (selectedDate < today) {
+      setMessage("Date must be today or in the future.");
+      return;
+    }
+
+    const selectedTime = formData.time;
+    if (!selectedTime) {
+      setMessage("Please select a valid time.");
+      return;
+    }
 
     if (!token) {
       setMessage("Authentication required. Please log in.");
@@ -42,7 +65,7 @@ const TableBooking = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include the token
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -58,6 +81,7 @@ const TableBooking = () => {
           date: "",
           time: "",
           guests: "",
+          period: "",
         });
       } else {
         setMessage(result.error || "Failed to book the table.");
@@ -116,14 +140,25 @@ const TableBooking = () => {
         />
 
         <label htmlFor="time">Time</label>
-        <input
-          type="time"
-          id="time"
-          name="time"
-          value={formData.time}
-          onChange={handleChange}
-          required
-        />
+        <div className="time-selection">
+          <input
+            type="time"
+            id="time"
+            name="time"
+            value={formData.time}
+            onChange={handleChange}
+            required
+          />
+          <select
+            name="period"
+            value={formData.period}
+            onChange={handleChange}
+            required
+          >
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+          </select>
+        </div>
 
         <label htmlFor="guests">Number of Guests</label>
         <input

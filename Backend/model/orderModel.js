@@ -1,13 +1,33 @@
-// backend/src/models/orderModel.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+
+const itemSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  quantity: { type: Number, required: true },
+  price: { type: Number, required: true },
+  total: { type: Number, required: true },
+});
 
 const orderSchema = new mongoose.Schema({
   customer: { type: String, required: true },
-  items: { type: Number, required: true },
+  phone: {
+    type: String,
+    required: true,
+    validate: {
+      validator: function (v) {
+        return /^\d{10}$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid phone number!`,
+    },
+  },
+  items: { type: [itemSchema], required: true },
   total: { type: Number, required: true },
-  status: { type: String, required: true, enum: ['Pending', 'In Progress', 'Completed'] },
+  status: {
+    type: String,
+    required: true,
+    enum: ["Pending", "In Progress", "Completed"],
+  },
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model("Order", orderSchema);
 
 module.exports = Order;

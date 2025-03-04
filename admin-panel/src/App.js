@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -5,11 +6,10 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar, Button } from "react-bootstrap";
 import { useAuth } from "./contexts/AuthContext";
 import "./App.css";
 
-// Import components
 import Dashboard from "./components/Dashboard/Dashboard";
 import Orders from "./components/Orders/Orders";
 import MenuItems from "./components/Menu/MenuItems";
@@ -19,8 +19,10 @@ import Reports from "./components/Reports/Reports";
 import LoginPage from "./components/login/LoginForm";
 import RegisterPage from "./components/register/RegisterForm";
 import ManageBookings from "./components/ManageBookings/ManageBookings";
+import Invoice from "./components/Invoice/invoice";
+import Sidebar from "./components/Sidbar/Sidebar";
+import ImageUpload from "./components/ImageUpload/ImageUpload";
 
-// Create a ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
 
@@ -33,46 +35,27 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   const { isLoggedIn, logout } = useAuth();
+  const [showSidebar, setShowSidebar] = useState(false);
+
+  const handleClose = () => setShowSidebar(false);
+  const handleShow = () => setShowSidebar(true);
 
   return (
     <Router>
       <div className="App">
         {isLoggedIn ? (
           <>
-            <div className="sidebar">
-              <Navbar bg="dark" variant="dark" className="flex-column h-100">
-                <Navbar.Brand className="mb-4 px-3">
-                  <h2>Cafe Admin</h2>
-                </Navbar.Brand>
-                <Nav className="flex-column w-100">
-                  <Nav.Link as={Link} to="/">
-                    Dashboard
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/orders">
-                    Orders
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/menu">
-                    Menu Items
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/inventory">
-                    Inventory
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/staff">
-                    Staff
-                  </Nav.Link>
-
-                  <Nav.Link as={Link} to="/admin/bookings">
-                    Bookings
-                  </Nav.Link>
-                  <Nav.Link as={Link} to="/reports">
-                    Reports
-                  </Nav.Link>
-                </Nav>
-              </Navbar>
-            </div>
+            <Sidebar show={showSidebar} handleClose={handleClose} />
             <div className="main-content">
               <Navbar bg="white" className="top-bar">
                 <Container fluid>
+                  <Button
+                    variant="primary"
+                    onClick={handleShow}
+                    className="d-md-none"
+                  >
+                    Toggle Sidebar
+                  </Button>
                   <Navbar.Text>Welcome, Admin</Navbar.Text>
                   <Nav>
                     <Nav.Link>Profile</Nav.Link>
@@ -95,6 +78,13 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <Orders />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/invoice"
+                    element={
+                      <ProtectedRoute>
                       </ProtectedRoute>
                     }
                   />
@@ -122,7 +112,6 @@ function App() {
                       </ProtectedRoute>
                     }
                   />
-
                   <Route
                     path="/admin/bookings"
                     element={
@@ -136,6 +125,14 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <Reports />
+                      </ProtectedRoute>
+                    }
+                  />
+                  <Route
+                    path="/upload-images"
+                    element={
+                      <ProtectedRoute>
+                        <ImageUpload />
                       </ProtectedRoute>
                     }
                   />

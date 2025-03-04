@@ -45,7 +45,7 @@ function RegisterForm() {
     try {
       const response = await sendOtp(formData.email);
       if (response.data.success) {
-        // Ensure this matches your backend response
+ 
         setOtpData((prev) => ({ ...prev, isOtpSent: true }));
         setAlert({ message: "OTP sent successfully!", type: "success" });
       } else {
@@ -55,7 +55,7 @@ function RegisterForm() {
         });
       }
     } catch (error) {
-      console.error("Error sending OTP:", error); // Log error for debugging
+      console.error("Error sending OTP:", error);
       setAlert({
         message: error.response?.data?.message || "Unexpected server error.",
         type: "error",
@@ -71,14 +71,14 @@ function RegisterForm() {
     try {
       const response = await verifyOtp(formData.email, otpData.otp);
       if (response.data.success) {
-        // Ensure this matches your backend response
+    
         setOtpData({ ...otpData, isOtpVerified: true });
         setAlert({ message: "OTP verified successfully!", type: "success" });
       } else {
         setAlert({ message: "Invalid OTP", type: "error" });
       }
     } catch (error) {
-      console.error("Error verifying OTP:", error); // Log error for debugging
+      console.error("Error verifying OTP:", error);
       setAlert({
         message: error.response?.data?.message || "Unexpected server error.",
         type: "error",
@@ -116,7 +116,7 @@ function RegisterForm() {
       });
 
       if (response.status === 201) {
-        // Check for successful registration
+
         setFormData({
           username: "",
           email: "",
@@ -129,15 +129,14 @@ function RegisterForm() {
           type: "success",
         });
 
-        // Navigate to login page after a short delay
+
         setTimeout(() => {
           navigate("/login");
-        }, 1000); // Redirect after 1 second
-      } else {
+        }, 1000)
         setAlert({ message: "Registration failed", type: "error" });
       }
     } catch (error) {
-      console.error("Registration error:", error.response?.data); // Log error for debugging
+      console.error("Registration error:", error.response?.data); 
       setAlert({
         message: error.response?.data?.message || "Unexpected server error.",
         type: "error",

@@ -1,16 +1,16 @@
 // @ts-ignore
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';  // Import Link from react-router-dom
+import { useNavigate, Link } from 'react-router-dom';
 import './AuthForm.css';
 import { login } from '../../api';
+import { Toaster, toast } from 'react-hot-toast';
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    token:''
+    token: ''
   });
-  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,10 +23,6 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setError('');
-
-
-
       const response = await login("login", {
         email: formData.email,
         password: formData.password
@@ -34,17 +30,21 @@ const LoginForm = () => {
 
       if (response.data.success) {
         localStorage.setItem('authToken', response.data.token);
-        navigate('/');
+        toast.success("Login successful!");
+        setTimeout(() => {
+          navigate('/');
+        }, 1500);
       } else {
-        setError(response.data.error);
+        toast.error(response.data.error);
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'An error occurred. Please try again.');
+      toast.error(err.response?.data?.error || 'An error occurred. Please try again.');
     }
   };
 
   return (
     <div className="auth-form-container">
+      <Toaster />
       <h2 className="auth-form-title">Login</h2>
       <form onSubmit={handleSubmit} className="auth-form">
         <label htmlFor="email">Email</label>
@@ -67,7 +67,6 @@ const LoginForm = () => {
           required
           placeholder="Enter your password"
         />
-        {error && <div className="auth-form-error">{error}</div>}
         <button type="submit" className="auth-form-button">Login</button>
       </form>
       <p className="auth-form-footer">
@@ -76,9 +75,8 @@ const LoginForm = () => {
       </p>
       <p className="auth-form-footer">
         Don't have an account?{' '}
-        <Link to="/register" className="auth-form-link">Register here</Link>  {/* Use Link instead of <a> */}
+        <Link to="/register" className="auth-form-link">Register here</Link>
       </p>
-
     </div>
   );
 };

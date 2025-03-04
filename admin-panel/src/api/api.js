@@ -1,11 +1,9 @@
 import axiosClient from "../confige/axios.js";
 
-// Add token handling
 const getAuthToken = () => {
   return localStorage.getItem("authToken");
 };
 
-// Update axios client default headers
 axiosClient.interceptors.request.use(
   (config) => {
     const token = getAuthToken();
@@ -19,7 +17,6 @@ axiosClient.interceptors.request.use(
   }
 );
 
-// HTTP method functions
 const get = (url) => {
   return axiosClient
     .get(`/${url}`)
@@ -83,7 +80,7 @@ export function register(URL, data) {
     });
 }
 
-export  function AdminLogin(data) {
+export function AdminLogin(data) {
   return axiosClient
    .post("/admin/login", data)
    .then((response) => {
@@ -106,7 +103,6 @@ export function AdminRegister(data) {
       throw error;
     });
 }
-
 
 export function add(URL, data) {
   return axiosClient
@@ -143,7 +139,6 @@ export function verifyOtp(phone, otp) {
     });
 }
 
-// Export the HTTP methods for general use
 export { get, post, put, del };
 
 export function getStaff() {
@@ -285,18 +280,6 @@ export function createOrders(data) {
       throw error;
     });
 }
-
-
-export function getDashboardData () {
-  return axiosClient
-    .get("/dashboard")
-    .then((response) => response)
-    .catch((error) => {
-      console.error("Error fetching dashboard data:", error);
-      throw error;
-    });
-    }
-
 
 export function getadminbookings() {
   return axiosClient

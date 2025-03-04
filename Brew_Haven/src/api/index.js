@@ -5,7 +5,6 @@ export function login(URL, data) {
     .post(`/${URL}`, data)
     .then((response) => {
       return response;
-      console.log(response);
     })
     .catch((error) => {
       console.log("error ------", error);
@@ -17,7 +16,6 @@ export function register(URL, data) {
     .post(`/${URL}`, data)
     .then((response) => {
       return response;
-      console.log(response);
     })
     .catch((error) => {
       console.log("error ------", error);
@@ -29,14 +27,12 @@ export function add(URL, data) {
     .post(`/${URL}`, data)
     .then((response) => {
       return response;
-      console.log(response);
     })
     .catch((error) => {
       console.log("error ------", error);
     });
 }
 
-// Add these new functions
 export function sendOtp(email) {
   return axiosClient
     .post("/send-otp", { email })
@@ -91,7 +87,6 @@ export function forgetPsswordSendOtp(email) {
     });
 }
 
-
 export function forgetPasswordVerifyOtp(email, otp) {
   return axiosClient
     .post("/forgot-password/verify-otp", { email, otp })
@@ -114,4 +109,17 @@ export function resetpassword(data) {
       console.log("error ------", error);
       throw error;
     });
+}
+
+
+export function subscribe(data) {
+  return axiosClient
+  .post("/subscribe",data)
+  .then((response) => {
+    return response;
+  })
+  .catch((error) => {
+    console.log("error ------", error);
+    throw error;
+  });
 }

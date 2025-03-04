@@ -46,6 +46,22 @@
   text-align: center; /* Center the content of each MenuItem */
 }
 
+.custom__button {
+  background: transparent;
+  color: var(--color-golden);
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  border-radius: 5px;
+  border: 2px solid var(--color-golden);
+  transition: all 0.3s ease;
+}
+
+.custom__button:hover {
+  background: var(--color-golden);
+  color: var(--color-black);
+}
+
 /* Responsive Design */
 @media only screen and (max-width: 768px) {
   .app__specialMenu-grid {

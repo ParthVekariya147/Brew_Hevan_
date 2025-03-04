@@ -1,8 +1,3 @@
-// var jwt = require('jsonwebtoken');
-
-// exports.check_token = async(req,res,next) => {
-//     jwt.verify(req.headers.authorization,process.env.SECRET_KEY,next)
-// }
 
 
 
@@ -17,7 +12,7 @@ exports.check_token = (req, res, next) => {
         }
 
         const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        req.user = decoded; // Add the user info to the request
+        req.user = decoded;
         next();
     } catch (error) {
         console.error("Auth error:", error);

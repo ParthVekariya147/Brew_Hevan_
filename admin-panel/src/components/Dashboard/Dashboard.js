@@ -23,7 +23,6 @@ function Dashboard() {
     { name: 'Espresso', orders: 28, revenue: '$112.00' },
   ]);
 
-  // Format currency
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -31,10 +30,7 @@ function Dashboard() {
     }).format(amount);
   };
 
-  // Remove authentication check
-  // if (!isAuthenticated) {
-  //   return null;
-  // }
+
 
   return (
     <div className="dashboard">

@@ -1,4 +1,3 @@
-// src/components/ManageBookings/ManageBookings.js
 import React, { useEffect, useState } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import {
@@ -7,12 +6,14 @@ import {
   deleteBooking,
   booktable,
 } from "../../api/api";
-import "./ManageBookings.css"; // Importing the CSS file
+import "./ManageBookings.css";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
-// Define the formatTime function
 const formatTime = (time) => {
   if (!time) {
-    return ""; // Handle the undefined case as needed
+    return "";
   }
   const [hours, minutes] = time.split(":");
   const period = hours >= 12 ? "PM" : "AM";
@@ -64,13 +65,11 @@ const ManageBookingsContainer = () => {
     fetchBookings();
   }, []);
 
-  // Helper function to format date in DD/MM/YYYY
   const formatDate = (dateString) => {
     const options = { day: "2-digit", month: "2-digit", year: "numeric" };
     return new Date(dateString).toLocaleDateString("en-IN", options);
   };
 
-  // Handle form input changes
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -78,12 +77,10 @@ const ManageBookingsContainer = () => {
     });
   };
 
-  // Handle booking creation/update
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (currentBooking) {
-        // Update existing booking
         const response = await updateBooking(currentBooking._id, formData);
         if (response && response.data) {
           setBookings(
@@ -91,38 +88,35 @@ const ManageBookingsContainer = () => {
               booking._id === currentBooking._id ? response.data : booking
             )
           );
+          toast.info("Booking updated successfully!");
         }
       } else {
-        // Create new booking
         const response = await booktable(formData);
         if (response && response.data) {
           setBookings([...bookings, response.data]);
+          toast.success("Booking added successfully!");
         }
       }
       handleCloseModal();
     } catch (error) {
       console.error("Error saving booking:", error);
-      if (error.response && error.response.status === 401) {
-        console.error("Unauthorized access - please log in again.");
-      } else {
-        console.error("An unexpected error occurred.");
-      }
+      toast.error("Error saving booking.");
     }
   };
 
-  // Handle booking delete
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this booking?")) {
       try {
         await deleteBooking(id);
         setBookings(bookings.filter((booking) => booking._id !== id));
+        toast.success("Booking deleted successfully!");
       } catch (error) {
         console.error("Error deleting booking:", error);
+        toast.error("Error deleting booking.");
       }
     }
   };
 
-  // Modal handlers
   const handleCloseModal = () => {
     setShowModal(false);
     setCurrentBooking(null);
@@ -151,12 +145,12 @@ const ManageBookingsContainer = () => {
     <div>
       <h1>Manage Bookings</h1>
       <Button variant="primary" onClick={() => handleShowModal()}>
+        <FaPlus className="me-2" />
         Add Booking
       </Button>
       <table>
         <thead>
           <tr>
-            {/* <th>Booking ID</th> */}
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
@@ -169,7 +163,6 @@ const ManageBookingsContainer = () => {
         <tbody>
           {bookings.map((booking) => (
             <tr key={booking._id}>
-              {/* <td>{booking._id}</td> */}
               <td>{booking.name}</td>
               <td>{booking.email}</td>
               <td>{booking.phone}</td>
@@ -183,14 +176,14 @@ const ManageBookingsContainer = () => {
                   className="me-2"
                   onClick={() => handleShowModal(booking)}
                 >
-                  Edit
+                  <FaEdit /> Edit
                 </Button>
                 <Button
                   variant="outline-danger"
                   size="sm"
                   onClick={() => handleDelete(booking._id)}
                 >
-                  Remove
+                  <FaTrash /> Remove
                 </Button>
               </td>
             </tr>
@@ -287,6 +280,7 @@ const ManageBookingsContainer = () => {
           </Form>
         </Modal.Body>
       </Modal>
+      <ToastContainer autoClose={5000} />
     </div>
   );
 };

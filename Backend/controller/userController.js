@@ -9,13 +9,12 @@ const Admin = require("../model/AdminSchema");
 const otpModel = require("../model/otp");
 const otpGenerator = require("otp-generator");
 const sendMail = require("../Utility/mailer");
-const OTP = require("../model/otp"); 
+const OTP = require("../model/otp");
 
 exports.Register = async (req, res) => {
   try {
     const { name, email, phone, password, cpassword } = req.body;
 
-    // Validation
     if (!name || !email || !phone || !password || !cpassword) {
       return res.status(400).json({
         success: false,
@@ -23,7 +22,6 @@ exports.Register = async (req, res) => {
       });
     }
 
-    // Check if passwords match
     if (password !== cpassword) {
       return res.status(400).json({
         success: false,
@@ -31,7 +29,6 @@ exports.Register = async (req, res) => {
       });
     }
 
-    // Check if user exists
     const userExist = await User.findOne({
       $or: [{ email: email }, { phone: phone }],
     });
@@ -43,7 +40,6 @@ exports.Register = async (req, res) => {
       });
     }
 
-    // Create new user
     const user = new User({
       name,
       email,
@@ -52,7 +48,6 @@ exports.Register = async (req, res) => {
       cpassword,
     });
 
-    // Save user
     await user.save();
 
     res.status(201).json({
@@ -79,7 +74,6 @@ exports.RegisterAdmin = async (req, res) => {
   try {
     const { name, email, phone, password, cpassword, role } = req.body;
 
-    // Validation
     if (!name || !email || !phone || !password || !cpassword || !role) {
       return res.status(400).json({
         success: false,
@@ -87,7 +81,6 @@ exports.RegisterAdmin = async (req, res) => {
       });
     }
 
-    // Check if passwords match
     if (password !== cpassword) {
       return res.status(400).json({
         success: false,
@@ -95,7 +88,6 @@ exports.RegisterAdmin = async (req, res) => {
       });
     }
 
-    // Check if user exists
     const adminExist = await Admin.findOne({
       $or: [{ email: email }, { phone: phone }],
     });
@@ -106,7 +98,6 @@ exports.RegisterAdmin = async (req, res) => {
       });
     }
 
-    // Create new user
     const newAdmin = new Admin({
       name,
       email,
@@ -116,7 +107,6 @@ exports.RegisterAdmin = async (req, res) => {
       role: "admin",
     });
 
-    // Save user
     await newAdmin.save();
 
     res.status(201).json({
@@ -130,7 +120,6 @@ exports.RegisterAdmin = async (req, res) => {
         role: newAdmin.role,
       },
     });
-    // console.log(error)
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({
@@ -145,7 +134,6 @@ exports.LoginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validation
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -153,7 +141,6 @@ exports.LoginAdmin = async (req, res) => {
       });
     }
 
-    // Find admin
     const admin = await Admin.findOne({ email, role: "admin" });
     if (!admin) {
       return res.status(401).json({
@@ -162,19 +149,14 @@ exports.LoginAdmin = async (req, res) => {
       });
     }
 
-    // Check password
     const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) {
-      console.log("Email:", email);
-      console.log("Password:", password);
-      console.log("Admin user:", admin);
       return res.status(401).json({
         success: false,
         error: "Invalid credentials",
       });
     }
 
-    // Generate JWT token
     const token = jwt.sign({ _id: admin._id }, process.env.SECRET_KEY);
 
     res.status(200).json({
@@ -202,7 +184,6 @@ exports.Login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Validate input
     if (!email || !password) {
       return res.status(400).json({
         success: false,
@@ -210,7 +191,6 @@ exports.Login = async (req, res) => {
       });
     }
 
-    // Find user by email
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -220,12 +200,7 @@ exports.Login = async (req, res) => {
       });
     }
 
-    console.log("User found:", user.email);
-    console.log("Stored Hashed Password:", user.password);
-
-    // Compare entered password with stored hashed password
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isMatch);
 
     if (!isMatch) {
       return res.status(401).json({
@@ -234,7 +209,6 @@ exports.Login = async (req, res) => {
       });
     }
 
-    // Generate JWT token
     const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
@@ -250,7 +224,6 @@ exports.Login = async (req, res) => {
         phone: user.phone,
       },
     });
-
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({
@@ -263,7 +236,7 @@ exports.Login = async (req, res) => {
 
 exports.sendOtp = async (req, res) => {
   const { email } = req.body;
-  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
   try {
     await sendMail(email, "Your OTP Code", `Your OTP code is ${otp}`);
@@ -271,7 +244,7 @@ exports.sendOtp = async (req, res) => {
     await newOtp.save();
     res.status(200).json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
-    console.error("Error sending OTP:", error); // Log error
+    console.error("Error sending OTP:", error);
     res.status(500).json({ success: false, message: "Failed to send OTP" });
   }
 };
@@ -288,22 +261,33 @@ exports.verifyOtp = async (req, res) => {
       .status(200)
       .json({ success: true, message: "OTP verified successfully" });
   } catch (error) {
-    console.error("Error verifying OTP:", error); // Log error
+    console.error("Error verifying OTP:", error);
     res.status(500).json({ success: false, message: "Failed to verify OTP" });
   }
 };
 
 exports.sendForgotPasswordOtp = async (req, res) => {
   const { email } = req.body;
-  const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
   try {
-    await sendMail(email, "Your OTP Code for Password Reset", `Your OTP code is ${otp}`);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    await sendMail(
+      email,
+      "Your OTP Code for Password Reset",
+      `Your OTP code is ${otp}`
+    );
     const newOtp = new OTP({ email, otp });
     await newOtp.save();
     res.status(200).json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
-    console.error("Error sending OTP:", error); // Log error
+    console.error("Error sending OTP:", error);
     res.status(500).json({ success: false, message: "Failed to send OTP" });
   }
 };
@@ -316,9 +300,11 @@ exports.verifyForgotPasswordOtp = async (req, res) => {
     if (!validOtp) {
       return res.status(400).json({ success: false, message: "Invalid OTP" });
     }
-    res.status(200).json({ success: true, message: "OTP verified successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "OTP verified successfully" });
   } catch (error) {
-    console.error("Error verifying OTP:", error); // Log error
+    console.error("Error verifying OTP:", error);
     res.status(500).json({ success: false, message: "Failed to verify OTP" });
   }
 };
@@ -330,7 +316,9 @@ exports.resetPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ success: false, message: "User not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
     }
 
     const validOtp = await OTP.findOne({ email, otp });
@@ -339,18 +327,24 @@ exports.resetPassword = async (req, res) => {
     }
 
     if (password !== cpassword) {
-      return res.status(400).json({ success: false, message: "Passwords do not match" });
+      return res
+        .status(400)
+        .json({ success: false, message: "Passwords do not match" });
     }
 
-    user.password = password; // Store password in plain text
-    user.cpassword = cpassword; // Store cpassword in plain text
+    user.password = password;
+    user.cpassword = cpassword;
     await user.save();
 
-    console.log("Password reset successfully for user:", user.email); // Log success
+    console.log("Password reset successfully for user:", user.email);
 
-    res.status(200).json({ success: true, message: "Password reset successfully" });
+    res
+      .status(200)
+      .json({ success: true, message: "Password reset successfully" });
   } catch (error) {
     console.error("Error resetting password:", error);
-    res.status(500).json({ success: false, message: "Failed to reset password" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to reset password" });
   }
 };

@@ -1,0 +1,23 @@
+.sidebar {
+    width: 250px; /* Fixed width for larger screens */
+    background-color: #343a40; /* Dark background for sidebar */
+    color: white; /* White text color */
+}
+
+.sidebar .nav-link {
+    color: rgb(34, 166, 1); /* White text for links */
+}
+
+.sidebar .nav-link:hover {
+    background-color: #495057; /* Darker background on hover */
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Full width on smaller screens */
+    }
+} 
+.active-link {
+    background-color: #4CAF50; /* Green background for active link */
+    color: white; /* White text color */
+} 

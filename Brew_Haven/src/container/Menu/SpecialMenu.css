@@ -2,7 +2,7 @@
 .app__specialMenu {
     display: flex;
     flex-direction: column;
-    background: #0C0C0C;
+    /* background: #0C0C0C; */
     padding: 4rem 6rem;
     transition: background 0.3s ease-in-out;
 }

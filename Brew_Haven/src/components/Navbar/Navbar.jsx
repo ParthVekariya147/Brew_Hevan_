@@ -8,34 +8,33 @@ import "./Navbar.css";
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem("authToken"); // Check if user is logged in by checking for token
+  const token = localStorage.getItem("authToken"); 
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken"); // Remove token from localStorage
-    setToggleMenu(false); // Close the mobile menu
-    navigate("/login"); // Redirect to login page after logout
+    localStorage.removeItem("authToken"); 
+    setToggleMenu(false); 
+    navigate("/login"); 
   };
 
   const handleSignUp = () => {
-    setToggleMenu(false); // Close the mobile menu
-    navigate("/register"); // Redirect to register page when clicking SignUp
+    setToggleMenu(false); 
+    navigate("/register"); 
   };
 
   const handleMobileNavClick = (path) => {
-    setToggleMenu(false); // Close the mobile menu
-    navigate(path); // Navigate to the clicked page
+    setToggleMenu(false); 
+    navigate(path); 
   };
 
   return (
     <nav className="app__navbar">
-      {/* Logo Section */}
+
       <div className="app__navbar-logo">
         <Link to="/">
           <img src={images.gericht} alt="Brew Haven Logo" />
         </Link>
       </div>
 
-      {/* Desktop Links */}
       <ul className="app__navbar-links">
         <li className="p__opensans">
           <Link to="/">Home</Link>
@@ -70,9 +69,10 @@ const Navbar = () => {
         <li className="p__opensans">
           <Link to="/about-us">About Us</Link>
         </li>
+
+     
       </ul>
 
-      {/* Login/Logout/Signup Toggle Button */}
       <div className="app__navbar-login">
         {token ? (
           <span
@@ -93,7 +93,7 @@ const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile Menu Toggle */}
+ 
       <div className="app__navbar-smallscreen">
         <GiHamburgerMenu
           color="#fff"
@@ -134,7 +134,6 @@ const Navbar = () => {
               </li>
 
 
-              {/* Login/Logout/Signup Toggle Button for Mobile */}
               <li className="p__opensans" onClick={token ? handleLogout : handleSignUp}>
                 {token ? "Logout" : "SignUp"}
               </li>

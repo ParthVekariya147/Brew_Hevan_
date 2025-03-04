@@ -1,17 +1,17 @@
-// @ts-ignore
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
-import './LoginForm.css';
-import { AdminLogin } from '../../api/api';  // Import AdminLogin
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import "./LoginForm.css";
+import { AdminLogin } from "../../api/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    token: ''
+    email: "",
+    password: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const { login: authLogin } = useAuth();
 
@@ -25,24 +25,25 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setError('');
-
-      // Use the new AdminLogin function here
+      setError("");
       const response = await AdminLogin({
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       });
 
       if (response.data.success) {
         const token = response.data.token;
-        localStorage.setItem('authToken', token);
+        localStorage.setItem("authToken", token);
         authLogin(token);
-        navigate('/');
+        toast.success("Invoice downloaded successfully!");
+        navigate("/");
       } else {
-        setError(response.data.error);
+        toast.error(response.data.error);
       }
     } catch (err) {
-      setError(err.response?.data?.error || 'An error occurred. Please try again.');
+      const errorMessage =
+        err.response?.data?.error || "An error occurred. Please try again.";
+      toast.error(errorMessage);
     }
   };
 
@@ -71,12 +72,21 @@ const LoginForm = () => {
           placeholder="Enter your password"
         />
         {error && <div className="auth-form-error">{error}</div>}
-        <button type="submit" className="auth-form-button">Login</button>
+        <button type="submit" className="auth-form-button">
+          Login
+        </button>
       </form>
       <p className="auth-form-footer">
-        Don't have an account?{' '}
-        <Link to="/register" className="auth-form-link">Register here</Link>
+        Don't have an account?{" "}
+        <Link to="/register" className="auth-form-link">
+          Register here
+        </Link>{" "}
+        |{" "}
+        <Link to="/upload-images" className="auth-form-link">
+          Upload Images
+        </Link>
       </p>
+      <ToastContainer autoClose={5000} />
     </div>
   );
 };

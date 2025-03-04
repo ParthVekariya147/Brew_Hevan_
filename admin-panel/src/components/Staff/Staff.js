@@ -10,7 +10,10 @@ import {
   Modal,
 } from "react-bootstrap";
 import { getStaff, updateStaff, deleteStaff, post } from "../../api/api";
-import "./Staff.css"; // Ensure to import the CSS file
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import "./Staff.css";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
 function Staff() {
   const [staffMembers, setStaffMembers] = useState([]);
@@ -26,10 +29,8 @@ function Staff() {
     status: "Active",
   });
 
-  // Assuming you have the admin ID available
-  const adminId = "YOUR_ADMIN_ID_HERE"; // Replace with actual admin ID
+  const adminId = "YOUR_ADMIN_ID_HERE";
 
-  // Fetch staff data
   useEffect(() => {
     fetchStaffMembers();
   }, []);
@@ -48,7 +49,6 @@ function Staff() {
     }
   };
 
-  // Handle form input changes
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
@@ -56,12 +56,10 @@ function Staff() {
     });
   };
 
-  // Handle staff creation/update
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (currentStaff) {
-
         const response = await updateStaff(String(currentStaff._id), formData);
         if (response && response.data) {
           setStaffMembers((prevStaff) =>
@@ -69,13 +67,13 @@ function Staff() {
               staff._id === currentStaff._id ? response.data : staff
             )
           );
+          toast.success("Staff member updated successfully!", { closeButton: false });
         }
       } else {
-        // Create new staff
         const response = await post("staff", formData);
         if (response && response.data) {
-          // Add the new staff to the list
           setStaffMembers((prevStaff) => [...prevStaff, response.data]);
+          toast.success("Staff member added successfully!", { closeButton: false });
         }
       }
       handleCloseModal();
@@ -84,30 +82,28 @@ function Staff() {
       if (error.response && error.response.status === 401) {
         window.location.href = "/login";
       }
-      alert(error.response?.data?.message || "Error saving staff member");
+      toast.error(error.response?.data?.message || "Error saving staff member", { closeButton: false });
     }
   };
 
-  // Handle staff deletion
   const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this staff member?")) {
       try {
         await deleteStaff(id);
-        // Remove the deleted staff from the list
         setStaffMembers((prevStaff) =>
           prevStaff.filter((staff) => staff._id !== id)
         );
+        toast.success("Staff member deleted successfully!", { closeButton: false });
       } catch (error) {
         console.error("Error deleting staff:", error);
         if (error.response && error.response.status === 401) {
           window.location.href = "/login";
         }
-        alert(error.response?.data?.message || "Error deleting staff member");
+        toast.error(error.response?.data?.message || "Error deleting staff member", { closeButton: false });
       }
     }
   };
 
-  // Modal handlers
   const handleCloseModal = () => {
     setShowModal(false);
     setCurrentStaff(null);
@@ -128,7 +124,6 @@ function Staff() {
     setShowModal(true);
   };
 
-  // Filter staff members based on search and role
   const filteredStaff = staffMembers.filter((staff) => {
     const matchesSearch =
       staff.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -140,9 +135,11 @@ function Staff() {
 
   return (
     <>
+      <ToastContainer />
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h2>Staff Management</h2>
         <Button variant="primary" onClick={() => handleShowModal()}>
+          <FaPlus className="me-2" />
           Add Staff Member
         </Button>
       </div>
@@ -205,14 +202,14 @@ function Staff() {
                       className="me-2"
                       onClick={() => handleShowModal(staff)}
                     >
-                      Edit
+                      <FaEdit /> Edit
                     </Button>
                     <Button
                       variant="outline-danger"
                       size="sm"
                       onClick={() => handleDelete(staff._id)}
                     >
-                      Remove
+                      <FaTrash /> Delete
                     </Button>
                   </td>
                 </tr>

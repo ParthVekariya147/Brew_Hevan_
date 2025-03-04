@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Alert from "../Alert/Alert";
 import "./AuthForm.css";
-import { sendOtp, verifyOtp, forgetPsswordSendOtp , forgetPasswordVerifyOtp , resetpassword } from "../../api"; // Import the APIs
+import {
+  sendOtp,
+  verifyOtp,
+  forgetPsswordSendOtp,
+  forgetPasswordVerifyOtp,
+  resetpassword,
+} from "../../api";
+import { Toaster, toast } from 'react-hot-toast';
 
 function ResetPasswordForm() {
   const [formData, setFormData] = useState({
@@ -12,8 +18,7 @@ function ResetPasswordForm() {
     otp: "",
   });
 
-  const [step, setStep] = useState(1); // 1: Request OTP, 2: Verify OTP, 3: Reset Password
-  const [alert, setAlert] = useState(null);
+  const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,72 +31,61 @@ function ResetPasswordForm() {
   const handleSendOtp = async (e) => {
     e.preventDefault();
     if (!formData.email) {
-      setAlert({ message: "Please enter your email address", type: "error" });
+      toast.error("Please enter your email address");
       return;
     }
 
     try {
       const response = await forgetPsswordSendOtp(formData.email);
-      console.log("OTP Send Response:", response.data); // Debugging log
+      console.log("OTP Send Response:", response.data);
 
       if (response.data.success) {
-        setAlert({ message: "OTP sent successfully!", type: "success" });
-        setStep(2); // Move to the OTP verification step
+        toast.success("OTP sent successfully!");
+        setStep(2);
       } else {
-        setAlert({
-          message: response.data.error || "Failed to send OTP",
-          type: "error",
-        });
+        toast.error(response.data.error || "Failed to send OTP");
       }
     } catch (error) {
       console.error("Error sending OTP:", error.response?.data);
-      setAlert({
-        message:
-          error.response?.data?.error || "An error occurred. Please try again.",
-        type: "error",
-      });
+      toast.error(error.response?.data?.error || "An error occurred. Please try again.");
     }
   };
 
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     if (!formData.otp) {
-      setAlert({ message: "Please enter the OTP", type: "error" });
+      toast.error("Please enter the OTP");
       return;
     }
 
     try {
-      const response = await forgetPasswordVerifyOtp(formData.email, formData.otp);
-      console.log("OTP Verify Response:", response.data); // Debugging log
+      const response = await forgetPasswordVerifyOtp(
+        formData.email,
+        formData.otp
+      );
+      console.log("OTP Verify Response:", response.data);
 
       if (response.data.success) {
-        setAlert({ message: "OTP verified successfully!", type: "success" });
-        setStep(3); // Move to the reset password step
+        toast.success("OTP verified successfully!");
+        setStep(3);
       } else {
-        setAlert({
-          message: response.data.error || "Invalid OTP",
-          type: "error",
-        });
+        toast.error(response.data.error || "Invalid OTP");
       }
     } catch (error) {
       console.error("Error verifying OTP:", error.response?.data);
-      setAlert({
-        message:
-          error.response?.data?.error || "An error occurred. Please try again.",
-        type: "error",
-      });
+      toast.error(error.response?.data?.error || "An error occurred. Please try again.");
     }
   };
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (!formData.newPassword || !formData.confirmPassword || !formData.otp) {
-      setAlert({ message: "All fields are required", type: "error" });
+      toast.error("All fields are required");
       return;
     }
 
     if (formData.newPassword !== formData.confirmPassword) {
-      setAlert({ message: "Passwords do not match", type: "error" });
+      toast.error("Passwords do not match");
       return;
     }
 
@@ -104,34 +98,21 @@ function ResetPasswordForm() {
       });
 
       if (response.data.success) {
-        setAlert({ message: "Password reset successfully!", type: "success" });
+        toast.success("Password reset successfully!");
         navigate("/login");
       } else {
-        setAlert({
-          message: response.data.error || "Failed to reset password",
-          type: "error",
-        });
+        toast.error(response.data.error || "Failed to reset password");
       }
     } catch (error) {
       console.error("Error resetting password:", error.response?.data);
-      setAlert({
-        message:
-          error.response?.data?.error || "An error occurred. Please try again.",
-        type: "error",
-      });
+      toast.error(error.response?.data?.error || "An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="auth-form-container">
+      <Toaster />
       <h2 className="auth-form-title">Reset Password</h2>
-      {alert && (
-        <Alert
-          message={alert.message}
-          type={alert.type}
-          onClose={() => setAlert(null)}
-        />
-      )}
 
       {step === 1 && (
         <form onSubmit={handleSendOtp} className="auth-form">
