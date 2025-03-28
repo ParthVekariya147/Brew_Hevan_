@@ -8,6 +8,7 @@ import menuPDF from "../../assets/menu.pdf";
 
 const MainMenu = () => {
   const [menuItems, setMenuItems] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -33,66 +34,81 @@ const MainMenu = () => {
   }, []);
 
   const onButtonClick = () => {
-
     const fileURL = menuPDF;
-
-
     let alink = document.createElement("a");
     alink.href = fileURL;
     alink.download = "Menu.pdf";
     alink.click();
   };
 
+  const filteredMenuItems = Object.keys(menuItems).reduce((acc, category) => {
+    const filteredItems = menuItems[category].filter((item) =>
+      item.title.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    if (filteredItems.length > 0) {
+      acc[category] = filteredItems;
+    }
+    return acc;
+  }, {});
+
   return (
     <div className="app__mainMenu">
+      <div className="app__mainMenu-header">
+        <input
+          type="text"
+          placeholder="Search for an item..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="app__mainMenu-search"
+        />
+      </div>
       <div className="app__specialMenu-grid">
-        {Object.keys(menuItems).map((category) => {
+        {Object.keys(filteredMenuItems).map((category) => {
           let emoji;
           switch (category) {
             case "wines":
               emoji = "🍷";
               break;
             case "cocktails":
-              emoji = "🍸"; 
+              emoji = "🍸";
               break;
             case "Hotcoffee":
-              emoji = "☕"; 
+              emoji = "☕";
               break;
             case "Coldcoffee":
-              emoji = "🧋"; 
+              emoji = "🧋";
               break;
             case "burgers":
-              emoji = "🍔"; 
+              emoji = "🍔";
               break;
             case "sandwiches":
-              emoji = "🥪"; 
+              emoji = "🥪";
               break;
             case "frenchFries":
-              emoji = "🍟"; 
+              emoji = "🍟";
               break;
             case "Chinese":
-              emoji = "🥢"; 
+              emoji = "🥢";
               break;
             case "Cakes":
-              emoji = "🎂"; 
+              emoji = "🎂";
               break;
             case "pizzas":
-              emoji = "🍕"; 
+              emoji = "🍕";
               break;
             case "IceCreams":
-              emoji = "🍦"; 
+              emoji = "🍦";
               break;
           }
 
           return (
             <div key={category} className="app__specialMenu-category">
-          
               <p className="app__mainMenu-heading">{`${emoji} ${
                 category.charAt(0).toUpperCase() + category.slice(1)
               }`}</p>
 
               <div className="app__mainMenu-items">
-                {menuItems[category].map((item) => (
+                {filteredMenuItems[category].map((item) => (
                   <MenuItem
                     key={item._id}
                     title={item.title}
@@ -106,7 +122,6 @@ const MainMenu = () => {
         })}
       </div>
       <center>
-
         <button
           type="button"
           className="custom__button"

@@ -81,10 +81,10 @@ const LoginForm = () => {
         <Link to="/register" className="auth-form-link">
           Register here
         </Link>{" "}
-        |{" "}
-        <Link to="/upload-images" className="auth-form-link">
+        {/* |{" "} */}
+        {/* <Link to="/upload-images" className="auth-form-link">
           Upload Images
-        </Link>
+        </Link> */}
       </p>
       <ToastContainer autoClose={5000} />
     </div>

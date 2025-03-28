@@ -1,9 +1,10 @@
 .findUs__container {
-  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  /* background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%); */
   padding: 8rem 2rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background: url(/src/assets/bg.png);
 }
 
 .findUs__content {
@@ -15,8 +16,9 @@
   background: rgba(255, 255, 255, 0.03);
   border-radius: 20px;
   padding: 3rem;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
 }
 
 .findUs__info {

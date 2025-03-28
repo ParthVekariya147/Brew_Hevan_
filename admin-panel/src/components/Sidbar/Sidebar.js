@@ -9,7 +9,7 @@ const Sidebar = ({ show, handleClose }) => {
       {/* Offcanvas for mobile view */}
       <Offcanvas show={show} onHide={handleClose} placement="start">
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>Cafe Admin</Offcanvas.Title>
+          <Offcanvas.Title>Braw Have</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav bg="dark" variant="dark"  className="flex-column">
@@ -49,7 +49,7 @@ const Sidebar = ({ show, handleClose }) => {
       <div className="d-none d-md-block sidebar">
         <Navbar bg="dark" variant="dark" className="flex-column h-100">
           <Navbar.Brand className="mb-4 px-3">
-            <h2>Cafe Admin</h2>
+            <h2>Brew Haven</h2>
           </Navbar.Brand>
           <Nav className="flex-column w-100">
             <Nav.Link as={NavLink} to="/" exact activeClassName="active-link">

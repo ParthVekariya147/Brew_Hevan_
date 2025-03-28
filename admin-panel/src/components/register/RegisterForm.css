@@ -28,7 +28,7 @@
 .register-form-container label {
     display: block;
     margin-bottom: 6px; /* Reduced bottom margin */
-    color: #7f8c8d;
+    color: #000000;
     font-weight: 500;
     font-size: 15px; /* Slightly increased font size */
 }
@@ -50,7 +50,7 @@
 }
 
 .register-form-container input::placeholder {
-    color: #bdc3c7;
+    color: #2d2f30b2;
 }
 
 .register-form-container button {

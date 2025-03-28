@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import { SubHeading } from '../../components';
 import { images } from '../../constants';
 import './Header.css';
+import SpecialMenu from '../../container/Menu/SpecialMenu';
+import Chef from '../../container/Chef/Chef';
+import FindUs from '../../container/Findus/FindUs';
 
 const Header = () => (
+  <>
   <div className="app__header app__wrapper section__padding" id="home">
     <div className="app__wrapper_info">
       <h3>
@@ -114,15 +118,24 @@ const Header = () => (
             Open Hours
           </p>
           <p className="p__opensans">
-            Mon - Fri: 10:00 am - 11:00 pm
+            Mon - Fri: 10:00 am - 02:00 pm
           </p>
           <p className="p__opensans">
-            Sat - Sun: 10:00 am - 12:00 am
+            Sat - Sun: 10:00 am - 03:00 am
           </p>
         </div>
       </div>
     </div>
+
+
+      
+
   </div>
+  <SpecialMenu />
+  <Chef />
+  <FindUs />
+
+  </>
 );
 
 export default Header;

@@ -10,7 +10,6 @@ const otpModel = require("../model/otp");
 const otpGenerator = require("otp-generator");
 const sendMail = require("../Utility/mailer");
 const OTP = require("../model/otp");
-
 exports.Register = async (req, res) => {
   try {
     const { name, email, phone, password, cpassword } = req.body;
@@ -19,6 +18,13 @@ exports.Register = async (req, res) => {
       return res.status(400).json({
         success: false,
         error: "All fields are required",
+      });
+    }
+
+    if (!/^\d{10}$/.test(phone)) {
+      return res.status(400).json({
+        success: false,
+        error: "Phone number must be exactly 10 digits",
       });
     }
 
@@ -69,6 +75,7 @@ exports.Register = async (req, res) => {
     });
   }
 };
+
 
 exports.RegisterAdmin = async (req, res) => {
   try {

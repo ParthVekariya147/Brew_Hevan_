@@ -6,6 +6,23 @@
   justify-content: center;
   align-items: center; /* Center the entire menu container */
   width: 100%;
+  position: relative; /* Add relative positioning */
+}
+
+.app__mainMenu-header {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  width: 100%;
+  padding: 20px;
+}
+
+.app__mainMenu-search {
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid var(--color-golden);
+  background: transparent;
+  color: var(--color-golden);
+  margin-right: 19%; /* Move the search bar 70% to the right */
 }
 
 .app__mainMenu-title {
@@ -66,12 +83,22 @@
 @media only screen and (max-width: 768px) {
   .app__specialMenu-grid {
     grid-template-columns: repeat(1, 1fr); /* Single column on mobile */
-    width:90%;
-    gap:1rem; /* Adjust gap for mobile */
-   }
+    width: 90%;
+    gap: 1rem; /* Adjust gap for mobile */
+  }
 
-   .app__mainMenu-heading {
-     font-size:2rem; /* Adjust heading size for mobile */
-   }
+  .app__mainMenu-heading {
+    font-size: 2rem; /* Adjust heading size for mobile */
+  }
+
+  .app__mainMenu-header {
+    justify-content: center; /* Center the search bar on mobile */
+    padding: 10px;
+  }
+
+  .app__mainMenu-search {
+    width: 100%;
+    margin-right: 0; /* Reset margin for mobile */
+  }
 }
 

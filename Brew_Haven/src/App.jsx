@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { AboutUs, Chef, FindUs, Footer, Gallery, Header, Intro, Laurels, SpecialMenu } from './container';
+import { AboutUs, Chef, FindUs, Footer, Gallery, Header, Intro, Laurels, } from './container';
 import Navbar from './components/Navbar/Navbar';
 import LoginForm from './components/AuthForm/LoginForm';
 import RegisterForm from './components/AuthForm/RegisterForm';
@@ -8,6 +8,8 @@ import TableBook from './container/TableBooking/TableBooking';
 import MainMenu from './container/Menu/MainMenu';
 import OrderPage from './components/Order/OrderPage';
 import ResetPasswordForm from './components/AuthForm/ResetPasswordForm';
+import SpecialMenu from './container/Menu/SpecialMenu';
+// import ContactUs from './container/ContactUs/ContactUs'; 
 import './App.css';
 
 const App = () => (
@@ -29,7 +31,14 @@ const App = () => (
         <Route path="/book-table" element={<TableBook />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path='/resetpassword' element={<ResetPasswordForm />} />
+        {/* <Route path="/contact-us" element={<ContactUs />} />  */}
       </Routes>
+      {/* <SpecialMenu/> */}
+      {/* <Intro /> */}
+      {/* <Laurels /> */}
+      {/* <Gallery /> */}
+      {/* <Chef /> */}
+
       <Footer />
     </div>
   </Router>

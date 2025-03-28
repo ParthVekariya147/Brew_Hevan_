@@ -80,7 +80,6 @@ const LoginForm = () => {
         <Link to="/register" className="auth-form-link">
           Register here
         </Link>{" "}
-        {/* Use Link instead of <a> */}
       </p>
       <ToastContainer />
     </div>

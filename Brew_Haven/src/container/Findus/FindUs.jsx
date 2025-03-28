@@ -12,9 +12,11 @@ const FindUs = () => (
         
         <div className="findUs__address">
           <p className="p__opensans">
-            Lane Ends Bungalow, Whatcroft Hall Lane,
-            <br />Rudheath, CW9 75G
-          </p>
+            1234, Brew Haven Lane
+            <br />Vesu Main Road
+            <br />Vesu, Surat
+            <br />Gujarat 395007
+            </p>
         </div>
 
         <div className="findUs__hours">

@@ -25,7 +25,7 @@
 
 .auth-form label {
     display: block;
-    color: #546e7a;
+    color: #000000;
     font-size: 13px;
     font-weight: 500;
     margin-bottom: 8px;
@@ -53,7 +53,7 @@
 }
 
 .auth-form input::placeholder {
-    color: #b0bec5;
+    color: #272727;
     font-size: 14px;
 }
 

@@ -1,11 +1,4 @@
-// const express = require("express");
-// const router = express.Router();
-// const photoController = require("../controller/photoController");
 
-// router.post("/upload", photoController.uploadPhoto);
-// router.get("/photos", photoController.getAllPhotos);
-
-// module.exports = router; 
 
 const express = require("express");
 const multer = require("multer");
