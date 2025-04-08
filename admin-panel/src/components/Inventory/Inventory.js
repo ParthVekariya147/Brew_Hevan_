@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Card, Button, Badge, Form, Modal } from "react-bootstrap";
+import { Table, Card, Button,  Form, Modal } from "react-bootstrap";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import axios from "axios";
 import "./inventory.css";
@@ -18,8 +18,8 @@ function Inventory() {
     selling_price: "",
   });
   const [currentItem, setCurrentItem] = useState(null);
-  const [searchText, setSearchText] = useState("");
-  const [filterStatus, setFilterStatus] = useState("");
+  // const [, setSearchText] = useState("");
+  // const [filterStatus, setFilterStatus] = useState("");
 
   useEffect(() => {
     const fetchInventoryItems = async () => {
@@ -132,7 +132,7 @@ function Inventory() {
               </tr>
             </thead>
             <tbody>
-              {inventoryItems.map((item, index) => (
+              {inventoryItems.map((item) => (
                 <tr key={item.id}>
                   <td>{item.name}</td>
                   <td>{item.category}</td>

@@ -123,3 +123,13 @@ export function subscribe(data) {
     throw error;
   });
 }
+
+export function submitContactForm(data) {
+  return axiosClient
+    .post("/contact", data)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error submitting contact form:", error);
+      throw error;
+    });
+}

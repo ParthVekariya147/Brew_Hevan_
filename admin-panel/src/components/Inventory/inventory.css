@@ -1,4 +1,4 @@
-  /* Table Styles */
+  
   table {
     width: 100%;
     border-collapse: collapse;
@@ -17,17 +17,18 @@
   }
   
   table th {
-    background-color: #f1f3f5; /* Light grey background for headers */
-    font-weight: 700; /* Bold text for headers */
+    background-color: #f1f3f5;
+    font-weight: 700; 
   }
   
   table td {
-    background-color: #ffffff; /* White background for table rows */
+    background-color: #ffffff; 
+    
     border-bottom: 1px solid #dee2e6;
   }
   
   table tr:nth-child(even) {
-    background-color: #D6EEEE; /* Light gray background for even rows */
+    background-color: #D6EEEE; 
   }
   
   table tr:hover {

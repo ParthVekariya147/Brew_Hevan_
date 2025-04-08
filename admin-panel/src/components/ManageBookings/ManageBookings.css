@@ -1,14 +1,14 @@
-/* ManageBookings.css */
+
 .manage-bookings-container {
-    padding: 32px; /* Padding for the container */
-    background-color: #f8f9fa; /* Light background color */
+    padding: 32px; 
+    background-color: #f8f9fa; 
     min-height: 100vh;
   }
   
   h1 {
-    font-size: 2.5rem; /* Larger header for the page */
-    font-weight: 800; /* Bold header */
-    color: #343a40; /* Dark color for the header */
+    font-size: 2.5rem; 
+    font-weight: 800;
+    color: #343a40; 
     margin-bottom: 24px;
   }
   
@@ -19,14 +19,14 @@
   }
   
   .loading-message {
-    color: #007bff; /* Blue color for loading state */
+    color: #007bff; 
   }
   
   .error-message {
-    color: #e74c3c; /* Red color for error state */
+    color: #e74c3c;
   }
   
-  /* Responsive design for smaller screens */
+
   @media (max-width: 768px) {
     table {
       font-size: 0.9rem;
@@ -38,7 +38,7 @@
     }
   }
   
-  /* Form Styling */
+
 form {
   display: flex;
   flex-direction: column;

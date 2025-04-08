@@ -1,43 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Card, Table } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { getOrders } from '../../api/api';
 
 function Dashboard() {
-  const navigate = useNavigate();
-  
   const [todayStats, setTodayStats] = useState({
     orders: 145,
-    revenue: 2854,
-    customers: 98
+    revenue: 0,
+    customers: 98,
+    allOrders: 0,
+    recentOrders: []
   });
 
-  const [recentOrders, setRecentOrders] = useState([
-    { id: 1, customer: 'John Doe', items: 3, total: '$42.50', time: '10 mins ago' },
-    { id: 2, customer: 'Sarah Smith', items: 2, total: '$25.00', time: '25 mins ago' },
-    { id: 3, customer: 'Mike Johnson', items: 4, total: '$68.75', time: '45 mins ago' },
-  ]);
-
-  const [popularItems, setPopularItems] = useState([
+  const [popularItems] = useState([
     { name: 'Cappuccino', orders: 45, revenue: '$225.00' },
     { name: 'Chocolate Cake', orders: 32, revenue: '$192.00' },
     { name: 'Espresso', orders: 28, revenue: '$112.00' },
   ]);
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'INR'
     }).format(amount);
   };
 
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await getOrders();
+        const ordersData = response.data?.success ? response.data.data : [];
 
+        // Calculate total revenue
+        const totalRevenue = ordersData.reduce((sum, order) => sum + order.total, 0);
+
+        // Calculate total orders
+        const totalOrders = ordersData.length;
+
+        // Calculate today's orders
+        const todayOrders = ordersData.filter(order => {
+          const orderDate = new Date(order.createdAt).toDateString();
+          const todayDate = new Date().toDateString();
+          return orderDate === todayDate;
+        }).length;
+
+        // Get the last three orders
+        const recentOrders = ordersData.slice(Math.max(ordersData.length - 3, 0));
+
+        setTodayStats((prevStats) => ({
+          ...prevStats,
+          revenue: totalRevenue,
+          orders: todayOrders,
+          allOrders: totalOrders,
+          recentOrders
+        }));
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   return (
     <div className="dashboard">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div className="d-flex justify-content-between align-items-center mb-4">  
         <h2>Dashboard</h2>
         <div className="welcome-text">
-          Welcome, Admin
+          Welcome, Parth
         </div>
       </div>
       
@@ -60,7 +89,7 @@ function Dashboard() {
             <Card.Body>
               <div className="d-flex justify-content-between align-items-center">
                 <div>
-                  <h6 className="text-muted">Today's Revenue</h6>
+                  <h6 className="text-muted">Total's Revenue</h6>
                   <h3>{formatCurrency(todayStats.revenue)}</h3>
                 </div>
                 <div className="fs-1 text-success">💰</div>
@@ -73,8 +102,8 @@ function Dashboard() {
             <Card.Body>
               <div className="d-flex justify-content-between align-items-center">
                 <div>
-                  <h6 className="text-muted">Today's Customers</h6>
-                  <h3>{todayStats.customers}</h3>
+                  <h6 className="text-muted">Total's Customers</h6>
+                  <h3>{todayStats.allOrders}</h3>
                 </div>
                 <div className="fs-1 text-info">👥</div>
               </div>
@@ -87,7 +116,7 @@ function Dashboard() {
               <div className="d-flex justify-content-between align-items-center">
                 <div>
                   <h6 className="text-muted">All Orders</h6>
-                  <h3>48</h3>
+                  <h3>{todayStats.allOrders}</h3>
                 </div>
                 <div className="fs-1 text-warning">🍽️</div>
               </div>
@@ -106,21 +135,27 @@ function Dashboard() {
               <Table hover>
                 <thead>
                   <tr>
-                    <th>Order ID</th>
+                    {/* <th>Order ID</th> */}
                     <th>Customer</th>
                     <th>Items</th>
                     <th>Total</th>
-                    <th>Time</th>
+                    {/* <th>Time</th> */}
                   </tr>
                 </thead>
                 <tbody>
-                  {recentOrders.map(order => (
+                  {todayStats.recentOrders.map(order => (
                     <tr key={order.id}>
-                      <td>#{order.id}</td>
+                      {/* <td>#{order.id}</td> */}
                       <td>{order.customer}</td>
-                      <td>{order.items}</td>
+                      <td>
+                        {Array.isArray(order.items) && order.items.map((item, index) => (
+                          <div key={index}>
+                            {item.title} (x{item.quantity})
+                          </div>
+                        ))}
+                      </td>
                       <td>{order.total}</td>
-                      <td>{order.time}</td>
+                      {/* <td>{new Date(order.createdAt).toLocaleTimeString()}</td> */}
                     </tr>
                   ))}
                 </tbody>

@@ -29,7 +29,7 @@ function Staff() {
     status: "Active",
   });
 
-  const adminId = "YOUR_ADMIN_ID_HERE";
+  // const adminId = "YOUR_ADMIN_ID_HERE";
 
   useEffect(() => {
     fetchStaffMembers();

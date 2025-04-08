@@ -2,7 +2,6 @@ import React from "react";
 import { Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 
-
 const Sidebar = ({ show, handleClose }) => {
   return (
     <>
@@ -12,36 +11,84 @@ const Sidebar = ({ show, handleClose }) => {
           <Offcanvas.Title>Braw Have</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <Nav bg="dark" variant="dark"  className="flex-column">
-            <Nav.Link as={NavLink} to="/" exact activeClassName="active-link" onClick={handleClose}>
+          <Nav bg="dark" variant="dark" className="flex-column">
+            <Nav.Link
+              as={NavLink}
+              to="/"
+              exact
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Dashboard
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/orders" activeClassName="active-link" onClick={handleClose}>
+            <Nav.Link
+              as={NavLink}
+              to="/orders"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Orders
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/menu" activeClassName="active-link" onClick={handleClose}>
+            <Nav.Link
+              as={NavLink}
+              to="/menu"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Menu Items
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/inventory" activeClassName="active-link" onClick={handleClose}>
+            <Nav.Link
+              as={NavLink}
+              to="/inventory"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Inventory
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/staff" activeClassName="active-link" onClick={handleClose}>
+            <Nav.Link
+              as={NavLink}
+              to="/staff"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Staff
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/admin/bookings" activeClassName="active-link" onClick={handleClose}>
+            <Nav.Link
+              as={NavLink}
+              to="/admin/bookings"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Bookings
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/reports" activeClassName="active-link" onClick={handleClose}>
+            {/* <Nav.Link
+              as={NavLink}
+              to="/reports"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Reports
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/upload-images" activeClassName="active-link" onClick={handleClose}>
+            </Nav.Link> */}
+            <Nav.Link
+              as={NavLink}
+              to="/upload-images"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
               Upload Images
             </Nav.Link>
             {/* <Nav.Link as={Link} to="/invoice" onClick={handleClose}>
               Invoice
             </Nav.Link> */}
+            <Nav.Link
+              as={NavLink}
+              to="/contact"
+              activeClassName="active-link"
+              onClick={handleClose}
+            >
+              Contact Us
+            </Nav.Link>
           </Nav>
-    
         </Offcanvas.Body>
       </Offcanvas>
 
@@ -61,22 +108,41 @@ const Sidebar = ({ show, handleClose }) => {
             <Nav.Link as={NavLink} to="/menu" activeClassName="active-link">
               Menu Items
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/inventory" activeClassName="active-link">
+            <Nav.Link
+              as={NavLink}
+              to="/inventory"
+              activeClassName="active-link"
+            >
               Inventory
             </Nav.Link>
             <Nav.Link as={NavLink} to="/staff" activeClassName="active-link">
               Staff
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/admin/bookings" activeClassName="active-link">
+            <Nav.Link
+              as={NavLink}
+              to="/admin/bookings"
+              activeClassName="active-link"
+            >
               Bookings
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/reports" activeClassName="active-link">
+            {/* <Nav.Link as={NavLink} to="/reports" activeClassName="active-link">
               Reports
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/upload-images" activeClassName="active-link">
+            </Nav.Link> */}
+            <Nav.Link
+              as={NavLink}
+              to="/upload-images"
+              activeClassName="active-link"
+            >
               Upload Images
             </Nav.Link>
-      
+            <Nav.Link
+              as={NavLink}
+              to="/contact"
+              activeClassName="active-link"
+            >
+              Contact Us
+            </Nav.Link>
+
             {/* <Nav.Link as={Link} to="/invoice">
               Invoice
             </Nav.Link> */}
@@ -87,4 +153,4 @@ const Sidebar = ({ show, handleClose }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

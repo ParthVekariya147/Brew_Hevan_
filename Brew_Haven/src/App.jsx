@@ -9,7 +9,7 @@ import MainMenu from './container/Menu/MainMenu';
 import OrderPage from './components/Order/OrderPage';
 import ResetPasswordForm from './components/AuthForm/ResetPasswordForm';
 import SpecialMenu from './container/Menu/SpecialMenu';
-// import ContactUs from './container/ContactUs/ContactUs'; 
+import ContactUs from './container/ContactUs/ContactUs'; 
 import './App.css';
 
 const App = () => (
@@ -31,7 +31,7 @@ const App = () => (
         <Route path="/book-table" element={<TableBook />} />
         <Route path="/order" element={<OrderPage />} />
         <Route path='/resetpassword' element={<ResetPasswordForm />} />
-        {/* <Route path="/contact-us" element={<ContactUs />} />  */}
+        <Route path="/contact-us" element={<ContactUs />} /> 
       </Routes>
       {/* <SpecialMenu/> */}
       {/* <Intro /> */}

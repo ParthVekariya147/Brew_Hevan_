@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Navigate,
 } from "react-router-dom";
 import { Container, Nav, Navbar, Button } from "react-bootstrap";
@@ -14,14 +13,15 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Orders from "./components/Orders/Orders";
 import MenuItems from "./components/Menu/MenuItems";
 import Inventory from "./components/Inventory/Inventory";
-import Staff from "./components/Staff/Staff";
+import Staff from "./components/Staff/Staff"
 import Reports from "./components/Reports/Reports";
 import LoginPage from "./components/login/LoginForm";
 import RegisterPage from "./components/register/RegisterForm";
 import ManageBookings from "./components/ManageBookings/ManageBookings";
-import Invoice from "./components/Invoice/invoice";
 import Sidebar from "./components/Sidbar/Sidebar";
 import ImageUpload from "./components/ImageUpload/ImageUpload";
+import Contact from "./components/Contact/Contact";
+// import { ContactTable } from "./components/Contact/Contact";
 
 const ProtectedRoute = ({ children }) => {
   const { isLoggedIn } = useAuth();
@@ -56,9 +56,9 @@ function App() {
                   >
                     Toggle Sidebar
                   </Button>
-                  <Navbar.Text>Welcome, Admin</Navbar.Text>
+                  <Navbar.Text>Welcome, Parth</Navbar.Text>
                   <Nav>
-                    <Nav.Link>Profile</Nav.Link>
+                    {/* <Nav.Link>Profile</Nav.Link> */}
                     <Nav.Link onClick={logout}>Logout</Nav.Link>
                   </Nav>
                 </Container>
@@ -133,6 +133,14 @@ function App() {
                     element={
                       <ProtectedRoute>
                         <ImageUpload />
+                      </ProtectedRoute>
+                    }
+                  />
+                      <Route
+                    path="/contact"
+                    element={
+                      <ProtectedRoute>
+                        <Contact />
                       </ProtectedRoute>
                     }
                   />

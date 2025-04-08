@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema({
     required: true,
     enum: ["Pending", "In Progress", "Completed"],
   },
-});
+}, { timestamps: true }); // Enable timestamps to track createdAt and updatedAt
 
 const Order = mongoose.model("Order", orderSchema);
 

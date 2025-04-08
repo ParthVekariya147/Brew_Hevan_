@@ -21,19 +21,6 @@ const formatTime = (time) => {
   return `${formattedHours}:${minutes} ${period}`;
 };
 
-const ManageBookings = ({ bookings }) => {
-  return (
-    <div>
-      {bookings.map((booking) => (
-        <div key={booking.id}>
-          <p>{booking.name}</p>
-          <p>{formatTime(booking.time)}</p>{" "}
-          {/* Ensure booking.time is defined */}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const ManageBookingsContainer = () => {
   const [bookings, setBookings] = useState([]);

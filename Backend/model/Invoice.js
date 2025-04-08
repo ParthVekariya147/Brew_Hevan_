@@ -5,11 +5,11 @@ const InvoiceSchema = new mongoose.Schema({
     items: [
         {
             name: String,
-            price: Number,
+            price: Number, // Price in INR
             quantity: Number,
         }
     ],
-    totalAmount: Number,
+    totalAmount: Number, // Total amount in INR
     createdAt: { type: Date, default: Date.now }
 });
 

@@ -6,6 +6,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "ajv": "^8.0.0",
+    "ajv-keywords": "^5.0.0",
     "array-move": "^4.0.0",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
@@ -47,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "css-minimizer-webpack-plugin": "^7.0.2"
   }
 }

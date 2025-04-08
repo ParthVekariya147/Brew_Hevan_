@@ -10,7 +10,7 @@ const ImageUpload = () => {
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
   const [imageFile, setImageFile] = useState(null);
-  const [showImages, setShowImages] = useState(false);
+  // const [showImages, setShowImages] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editingImage, setEditingImage] = useState(null);
@@ -59,14 +59,8 @@ const ImageUpload = () => {
       }
 
       if (editingImage) {
-        const response = await axios.put(`http://localhost:4000/photos/${editingImage._id}`, formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
         toast.success("Image updated successfully!");
       } else {
-        const response = await axios.post("http://localhost:4000/upload", formData, {
-          headers: { "Content-Type": "multipart/form-data" },
-        });
         toast.success("Image uploaded successfully!");
       }
 

@@ -27,7 +27,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="app__navbar">
+    <nav className="app__navbar"> 
 
       <div className="app__navbar-logo">
         <Link to="/">
@@ -68,6 +68,10 @@ const Navbar = () => {
 
         <li className="p__opensans">
           <Link to="/about-us">About Us</Link>
+        </li>
+
+        <li className="p__opensans">
+          <Link to="/contact-us">Contact Us</Link>
         </li>
 
      
@@ -131,6 +135,10 @@ const Navbar = () => {
 
               <li className="p__opensans" onClick={() => handleMobileNavClick("/about-us")}>
                 About Us
+              </li>
+
+              <li className="p__opensans" onClick={() => handleMobileNavClick("/contact-us")}>
+                Contact Us
               </li>
 
 

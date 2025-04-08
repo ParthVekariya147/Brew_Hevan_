@@ -57,6 +57,26 @@ const del = (url) => {
     });
 };
 
+export function submitContactForm(data) {
+  return axiosClient
+    .post("/contact", data)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error submitting contact form:", error);
+      throw error;
+    });
+}
+
+export function getAllContacts() {
+  return axiosClient
+    .get("/getcontacts")
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error("Error fetching contacts:", error);
+      throw error;
+    });
+}
+
 export const login = async (endpoint, data) => {
   try {
     const response = await axiosClient.post(`/${endpoint}`, data);
@@ -82,11 +102,11 @@ export function register(URL, data) {
 
 export function AdminLogin(data) {
   return axiosClient
-   .post("/admin/login", data)
-   .then((response) => {
+    .post("/admin/login", data)
+    .then((response) => {
       return response;
     })
-   .catch((error) => {
+    .catch((error) => {
       console.log("error ------", error);
       throw error;
     });
@@ -94,11 +114,11 @@ export function AdminLogin(data) {
 
 export function AdminRegister(data) {
   return axiosClient
-   .post("/admin/reg", data)
-   .then((response) => {
+    .post("/admin/reg", data)
+    .then((response) => {
       return response;
     })
-   .catch((error) => {
+    .catch((error) => {
       console.log("error ------", error);
       throw error;
     });
