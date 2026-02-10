@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "dev": "node app.js"
+    "dev": "node app.js",
+    "build": "echo \"Backend does not require a build step\" && exit 0",
+    "lint": "eslint . --ext .js"
   },
   "keywords": [],
   "author": "",
@@ -23,5 +25,10 @@
     "nodemon": "^3.1.0",
     "otp-generator": "^4.0.1",
     "twilio": "^5.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "globals": "^17.3.0"
   }
 }

@@ -1,4 +1,5 @@
 const TableBooking = require("../model/TableBookingSchema");
+const sendMail = require("../Utility/mailer");
 
 exports.bookTable = async (req, res) => {
   try {
@@ -136,6 +137,13 @@ exports.deleteBooking = async (req, res) => {
   }
 };
 
+// Helper function to send booking confirmation email
+const sendBookingConfirmation = async (email, bookingDetails) => {
+  const subject = "Table Booking Confirmation - Brew Haven";
+  const text = `Dear ${bookingDetails.name},\n\nYour table booking has been confirmed!\n\nDetails:\n- Date: ${bookingDetails.date}\n- Time: ${bookingDetails.time}\n- Guests: ${bookingDetails.guests}\n\nThank you for choosing Brew Haven!`;
+
+  return sendMail(email, subject, text);
+};
 
 exports.sendConfirmationEmail = async (req, res) => {
   try {

@@ -9,7 +9,7 @@ const sendMail = (to, subject, text) => {
         pass: process.env.EMAIL_PASSWORD,
       },
     });
-    
+
     const mailOptions = {
       from: process.env.EMAIL,
       to,
@@ -19,7 +19,7 @@ const sendMail = (to, subject, text) => {
 
     return transporter.sendMail(mailOptions);
   } catch (error) {
-    console.log("Error while sending mail (mailSender) - ", email);
+    console.log("Error while sending mail (mailSender) - ", to);
   }
 };
 
