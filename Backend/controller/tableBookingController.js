@@ -135,3 +135,17 @@ exports.deleteBooking = async (req, res) => {
     res.status(500).json({ error: "Failed to delete booking." });
   }
 };
+
+
+exports.sendConfirmationEmail = async (req, res) => {
+  try {
+    const { email, bookingDetails } = req.body;
+
+    await sendBookingConfirmation(email, bookingDetails);
+
+    res.status(200).json({ success: true, message: 'Confirmation email sent!' });
+  } catch (err) {
+    console.error('Error sending confirmation email:', err);
+    res.status(500).json({ success: false, message: 'Failed to send confirmation email.' });
+  }
+};

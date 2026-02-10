@@ -9,3 +9,4 @@ const contactSchema = new mongoose.Schema({
 }, { timestamps: true });  // ✅ Enable timestamps
 
 module.exports = mongoose.model("Contact", contactSchema);
+

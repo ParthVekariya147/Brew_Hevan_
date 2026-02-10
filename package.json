@@ -4,10 +4,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "both": "concurrently \"npm run dev-Backend\" \"npm run dev-Brew_Haven\" \"npm run dev-admin-panel\"",
-    "dev-Backend": "cd Backend && npm start",
+    "install-Backend": "cd Backend && npm install",
+    "install-Brew_Haven": "cd Brew_Haven && npm install",
+    "install-admin-panel": "cd admin-panel && npm install",
+    "install-all": "concurrently \"npm run install-Backend\" \"npm run install-Brew_Haven\" \"npm run install-admin-panel\"",
+    "both": "concurrently \"npm run start-Backend\" \"npm run dev-Brew_Haven\" \"npm run start-admin-panel\"",
+    "start-Backend": "cd Backend && npm start",
     "dev-Brew_Haven": "cd Brew_Haven && npm run dev",
-    "dev-admin-panel": "cd admin-panel && npm start"
+    "start-admin-panel": "cd admin-panel && npm start"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +21,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
+    "concurrently": "^9.2.1",
     "jspdf": "^2.5.2",
     "jspdf-autotable": "^3.8.4",
     "mdb-react-ui-kit": "^9.0.0",

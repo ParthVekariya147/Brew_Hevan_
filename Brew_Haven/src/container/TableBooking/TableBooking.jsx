@@ -73,7 +73,7 @@ const TableBooking = () => {
       const result = await response.json();
 
       if (response.ok) {
-        setMessage("Table booked successfully!");
+        setMessage("Table booked successfully! Confirmation email sent in soon.");
         setFormData({
           name: "",
           email: "",

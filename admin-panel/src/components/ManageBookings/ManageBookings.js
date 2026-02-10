@@ -5,7 +5,9 @@ import {
   updateBooking,
   deleteBooking,
   booktable,
+  sendBookingConfirmation 
 } from "../../api/api";
+// import sendBookingConfirmation from "../../utils/sendBookingConfirmation";
 import "./ManageBookings.css";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
@@ -104,6 +106,22 @@ const ManageBookingsContainer = () => {
     }
   };
 
+  const handleSendConfirmation = async (booking) => {
+    try {
+      await sendBookingConfirmation({
+        name: booking.name,
+        email: booking.email,
+        date: booking.date,
+        time: booking.time,
+        guests: booking.guests,
+      });
+      toast.success("Confirmation email sent successfully!");
+    } catch (error) {
+      console.error("Error sending confirmation email:", error);
+      toast.error("Failed to send confirmation email.");
+    }
+  };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setCurrentBooking(null);
@@ -168,9 +186,17 @@ const ManageBookingsContainer = () => {
                 <Button
                   variant="outline-danger"
                   size="sm"
+                  className="me-2"
                   onClick={() => handleDelete(booking._id)}
                 >
                   <FaTrash /> Remove
+                </Button>
+                <Button
+                  variant="outline-success"
+                  size="sm"
+                  onClick={() => handleSendConfirmation(booking)}
+                >
+                  Send Confirmation
                 </Button>
               </td>
             </tr>

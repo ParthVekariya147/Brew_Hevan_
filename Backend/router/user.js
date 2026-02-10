@@ -20,6 +20,7 @@ router.get("/bookings", auth.check_token, tableBookingController.getBookings);
 router.get("/admin/bookings", tableBookingController.getAllBookings);
 router.put("/admin/bookings/:id", tableBookingController.updateBooking);
 router.delete("/admin/bookings/:id", tableBookingController.deleteBooking);
+router.post('/sendconfirmation', tableBookingController.sendConfirmationEmail);
 
 router.post("/send-otp", userController.sendOtp);
 router.post("/verify-otp", userController.verifyOtp);

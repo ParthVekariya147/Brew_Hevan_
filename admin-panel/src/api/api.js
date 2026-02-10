@@ -341,3 +341,13 @@ export function booktable(data) {
     });
 }
 
+
+export function sendBookingConfirmation(data) {
+  return axiosClient
+    .post("/sendconfirmation", data)
+    .then((response) => response)
+    .catch((error) => {
+      console.error("Error sending confirmation email:", error);
+      throw error;
+    });
+}
